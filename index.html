@@ -34,7 +34,7 @@
 	.boardentity {
 		display: block;
 		position: absolute;
-		top: 0; right: 0; bottom: 0; left: 0;
+		top: 10%; right: 10%; bottom: 10%; left: 10%;
 		border-radius: 100%;
 	}
 	.controls {
@@ -72,11 +72,20 @@
 <script type="text/javascript">
 	// constants ////////////////////////////////////////////////////////////
 	var board;
+	var grass = { color: "greenyellow" };
+	var water = { color: "blue" };
+	var desert = {color: "yellow"};
+	var forest = {color: "green"};
+	
+	var snake = {color: "red"};
+	var mushroom = {color: "black"};
+	var tree = {color: "brown"};
+	
 	var tiles = [
-		"green", "blue", "brown", "yellow"
+		grass, water, desert, forest
 	]
 	var teams = [
-		"white", "black"
+		snake, mushroom, tree
 	]
 	
 	
@@ -127,10 +136,8 @@
 		for (var y=0; y<board_size[1];y++) {
 			var row = [];
 			for (var x=0; x<board_size[0];x++) {
-				if (Math.random() > 0.8) {
-					row.push(teams[0])
-				} else if (Math.random() > 0.8) {
-					row.push(teams[1])
+				if (Math.random() > 0.7) {
+					row.push(choose(teams))
 				}
 				else {
 					row.push(null);
@@ -145,8 +152,8 @@
 		var tile_elem = document.getElementById('tile-' + x + '-' + y);
 		var team_elem = document.getElementById('entity-' + x + '-' + y);
 		
-		tile_elem.style.background = tile;
-		team_elem.style.background = team ? team : 'transparent';
+		tile_elem.style.background = tile.color;
+		team_elem.style.background = team ? team.color : 'transparent';
 	}
 	function render_board() {
 		for (var y=0; y<board_size[1];y++) {

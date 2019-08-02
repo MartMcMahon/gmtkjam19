@@ -36,13 +36,16 @@
 		margin-left: 20px;
 	}
 </style>
+<script>
+	var board_size = [10, 10];
+</script>
 <body>
 <div class="wrapper">
 	<div class="gameboard">
 		<script>
-			for (var y=0; y<10;y++) {
+			for (var y=0; y<board_size[1];y++) {
 				document.write("<div class='row'>");
-				for (var x=0; x<10;x++) {
+				for (var x=0; x<board_size[0];x++) {
 					document.write("<div class='boardcell' id='cell-" + x + "-" + y + "'></div>")
 				}
 				document.write("</div>");
@@ -60,26 +63,99 @@
 
 
 <script type="text/javascript">
+	// constants ////////////////////////////////////////////////////////////
+	var board;
+	var tiles = [
+		"green", "blue", "brown", "yellow"
+	]
+	var teams = [
+		"white", "black"
+	]
+	
+	
+	// actions ////////////////////////////////////////////////////////////
+	function get_entity_count() {
+		var n = 0;
+		for (var y=0; y<board_size[1];y++) {
+			for (var x=0; x<board_size[0];x++) {
+				if (board.teams[y][x]) {
+					n += 1;
+				}
+			}
+		}
+		return n;
+	}
+	function kill_x_random_things(n) {
+		
+	}
+	function decimate() {
+		for (var y=0; y<board_size[1];y++) {
+			for (var x=0; x<board_size[0];x++) {
+			
+			}
+		}
+	}
+
+	// utilities ////////////////////////////////////////////////////////////
 	function randint(min, max) {
 		return Math.floor(min + (Math.random() * (max-min)))
 	}
 	function choose(list) {
 		return list[randint(0, list.length)];
 	}
-	function changecell(x, y, color) {
-		var elem = document.getElementById('cell-' + x + '-' + y);
-		elem.style.background = color;
+	
+	
+	function init_board() {
+		board = {
+			tiles: [],
+			teams: []
+		}
+		for (var y=0; y<board_size[1];y++) {
+			var row = [];
+			for (var x=0; x<board_size[0];x++) {
+				row.push(choose(tiles))
+			}
+			board.tiles.push(row);
+		}
+		for (var y=0; y<board_size[1];y++) {
+			var row = [];
+			for (var x=0; x<board_size[0];x++) {
+				if (Math.random() > 0.8) {
+					row.push(teams[0])
+				} else if (Math.random() > 0.8) {
+					row.push(teams[1])
+				}
+				else {
+					row.push(null);
+				}
+				
+			}
+			board.teams.push(row);
+		}
 	}
 	
-	var creatures = [
-		"green", "red", "blue", "purple", "black", "brown", "yellow", "white"
-	]
-	
-	setInterval(function() {
-		for (var y=0; y<10;y++) {
-			for (var x=0; x<10;x++) {
-				changecell(x, y, choose(creatures));
+	function render_cell(x, y, tile, team) {
+		var elem = document.getElementById('cell-' + x + '-' + y);
+		if (team) {
+			elem.style.background = team;
+		}
+		else {
+			elem.style.background = tile;
+		}
+	}
+	function render_board() {
+		for (var y=0; y<board_size[1];y++) {
+			for (var x=0; x<board_size[0];x++) {
+				render_cell(x, y, 
+					board.tiles[y][x], 
+					board.teams[y][x]
+				);
 			}
 		}
-	}, 5000);
+	}
+	
+	
+	// Start the game
+	init_board()
+	render_board()
 </script>

@@ -42,6 +42,11 @@
 		width: 440px;
 		margin-left: 20px;
 	}
+	button {
+		height: 40px;
+		width: 100%;
+		margin-bottom: 10px;
+	}
 </style>
 <script>
 	var board_size = [10, 10];
@@ -62,7 +67,7 @@
 	<div class="controls">
 		<div>Things Left</div>
 		<h1>10</h1>
-		<button>Decimate</button>
+		<button onClick="decimate()">Decimate</button>
 		<button>Plague (category decimate)</button>
 		<button>Abiogenesis</button>
 	</div>
@@ -70,6 +75,24 @@
 
 
 <script type="text/javascript">
+	// utilities ////////////////////////////////////////////////////////////
+	function randint(min, max) {
+		return Math.floor(min + (Math.random() * (max-min)))
+	}
+	function choose(list) {
+		return list[randint(0, list.length)];
+	}
+	function shuffle(array) {
+		for (var i = array.length - 1; i > 0; i--) {
+			var j = Math.floor(Math.random() * (i + 1));
+			var temp = array[i];
+			array[i] = array[j];
+			array[j] = temp;
+		}
+		return array;
+	}
+	
+	
 	// constants ////////////////////////////////////////////////////////////
 	var board;
 	var grass = { color: "greenyellow" };
@@ -82,7 +105,7 @@
 	var tree = {color: "brown"};
 	
 	var tiles = [
-		grass, water, desert, forest
+		grass, water// , desert, forest
 	]
 	var teams = [
 		snake, mushroom, tree
@@ -90,36 +113,36 @@
 	
 	
 	// actions ////////////////////////////////////////////////////////////
-	function get_entity_count() {
-		var n = 0;
+	function find_occupied_cells(by_team) {
+		var coords = [];
 		for (var y=0; y<board_size[1];y++) {
 			for (var x=0; x<board_size[0];x++) {
-				if (board.teams[y][x]) {
-					n += 1;
+				var entity = board.teams[y][x];
+				if (entity && (entity == by_team || by_team === undefined)) {
+					coords.push([x, y]);
 				}
 			}
 		}
-		return n;
+		return coords;
 	}
-	function kill_x_random_things(n) {
+	function get_entity_count(of_team) {
+		return find_occupied_cells(of_team).length;
+	}
+	function decimate(by_team) {
+		var occupied = find_occupied_cells(by_team);
+		occupied = shuffle(occupied);
+		for (var i=Math.ceil(occupied.length / 10); i--;) {
+			var coords = occupied[i];
+			var x = coords[0];
+			var y = coords[1];
+			
+			board.teams[y][x] = null;
+		}
+		render_board();
+	}
+	function spawn(by_team) {
 		
 	}
-	function decimate() {
-		for (var y=0; y<board_size[1];y++) {
-			for (var x=0; x<board_size[0];x++) {
-			
-			}
-		}
-	}
-
-	// utilities ////////////////////////////////////////////////////////////
-	function randint(min, max) {
-		return Math.floor(min + (Math.random() * (max-min)))
-	}
-	function choose(list) {
-		return list[randint(0, list.length)];
-	}
-	
 	
 	function init_board() {
 		board = {

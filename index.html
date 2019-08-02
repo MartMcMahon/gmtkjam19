@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<meta charset=utf-8>
+<title>Only One</title>
+<style>
+	html, body {
+		margin: 0;
+		border: 0;
+		font-size: 16px;
+	}
+	.wrapper {
+		width: 940px;
+		padding: 10px;
+		margin: 0 auto;
+	}
+	.gameboard {
+		float: left;
+		height:  480px;
+		width: 480px;
+	}
+	.row {
+		height: 10%;
+		width: 100%;
+		clear: both;
+	}
+	.boardcell {
+		display: block;
+		float: left;
+		background: green;
+		height: 100%;
+		width: 10%;
+	}
+	.controls {
+		float: left;
+		width: 440px;
+		margin-left: 20px;
+	}
+</style>
+<body>
+<div class="wrapper">
+	<div class="gameboard">
+		<script>
+			for (var y=0; y<10;y++) {
+				document.write("<div class='row'>");
+				for (var x=0; x<10;x++) {
+					document.write("<div class='boardcell' id='cell-" + x + "-" + y + "'></div>")
+				}
+				document.write("</div>");
+			}
+		</script>
+	</div>
+	<div class="controls">
+		<div>Things Left</div>
+		<h1>10</h1>
+		<button>Decimate</button>
+		<button>Plague (category decimate)</button>
+		<button>Abiogenesis</button>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	function randint(min, max) {
+		return Math.floor(min + (Math.random() * (max-min)))
+	}
+	function choose(list) {
+		return list[randint(0, list.length)];
+	}
+	function changecell(x, y, color) {
+		var elem = document.getElementById('cell-' + x + '-' + y);
+		elem.style.background = color;
+	}
+	
+	var creatures = [
+		"green", "red", "blue", "purple", "black", "brown", "yellow", "white"
+	]
+	
+	setInterval(function() {
+		for (var y=0; y<10;y++) {
+			for (var x=0; x<10;x++) {
+				changecell(x, y, choose(creatures));
+			}
+		}
+	}, 5000);
+</script>

@@ -24,15 +24,15 @@
 		clear: both;
 	}
 	.boardcell {
+		background-image: url('./gfx/Overworld.png');
 		display: block;
 		position: relative;
 		float: left;
-		background: green;
 		height: 100%;
 		width: 10%;
-		background-image: url('./gfx/Overworld.png');
 	}
 	.boardentity {
+		background-image: url('./gfx/Overworld.png');
 		display: block;
 		position: absolute;
 		top: 10%; right: 10%; bottom: 10%; left: 10%;
@@ -72,8 +72,21 @@
 		<button>Plague (category decimate)</button>
 		<button>Abiogenesis</button>
 	</div>
+  <div class="debugging">
+    <button onClick="debug_setSlice(0)">0</button>
+    <button onClick="debug_setSlice(1)">1</button>
+    <button onClick="debug_setSlice(2)">2</button>
+    <button onClick="debug_setSlice(3)">3</button>
+    <button onClick="debug_setSlice(4)">4</button>
+    <button onClick="debug_setSlice(5)">5</button>
+    <button onClick="debug_setSlice(6)">6</button>
+    <button onClick="debug_setSlice(7)">7</button>
+    <button onClick="debug_setSlice(8)">8</button>
+    <button onClick="debug_setSlice(9)">9</button>
+  </div>
 </div>
 
+<script src="assets.js"></script>
 <script src="utils.js"></script>
 <script src="constants.js"></script>
 <script src="event_handlers.js"></script>

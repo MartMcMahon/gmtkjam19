@@ -31,10 +31,13 @@ function render_cell(x, y, tile, team) {
 	var tile_elem = document.getElementById('tile-' + x + '-' + y);
 	var team_elem = document.getElementById('entity-' + x + '-' + y);
 
-	tile_elem.style.backgroundPosition = tile.backgroundPosition;
-	tile_elem.style.backgroundSize = "1920px";
+	// tile_elem.style.backgroundPosition = tile.backgroundPosition;
+	tile_elem.style.backgroundPosition = tile.backgroundPosition(s_index);
+	tile_elem.style.backgroundSize = tile_map_width + "px";
 
-	team_elem.style.background = team ? team.color : 'transparent';
+  // team_elem.style.backgroundPosition = team && team.backgroundPosition;
+  // team_elem.style.backgroundSize = tile_map_width + "px";
+  team_elem.style.background = "transparent";
 }
 function render_board() {
 	for (var y=0; y<board_size[1];y++) {
@@ -65,7 +68,7 @@ function find_unoccupied_cells(by_team) {
 	for (var i=occupied.length; i--;) {
 		occupied[i] = occupied[i].join(',');
 	}
-	
+
 	for (var y=0; y<board_size[1];y++) {
 		for (var x=0; x<board_size[0];x++) {
 			var entity = board.teams[y][x];

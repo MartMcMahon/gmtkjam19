@@ -68,6 +68,7 @@
 	<div class="controls">
 		<div>Things Left</div>
 		<h1>10</h1>
+		<button onClick="game_tick()">tick</button>
 		<button onClick="decimate()">Decimate</button>
 		<button>Plague (category decimate)</button>
 		<button>Abiogenesis</button>
@@ -91,6 +92,7 @@
 <script src="constants.js"></script>
 <script src="event_handlers.js"></script>
 <script src="board.js"></script>
+<script src="engine.js"></script>
 <script type="text/javascript">
 	init_board();
 	render_board();

@@ -1,23 +1,30 @@
 var tile_size = 48;
+var tile_map_width = 1920;
 
-// var grass = { backgroundPosition: "0 0", name: "grass" };
 var grass = {
   name: "grass",
   backgroundPosition: function(sliceIndex) {
     var startCoords = getTileSpriteCoords("grass");
-    var coords =  getNineSliceList(startCoords[0], startCoords[1])[sliceIndex];
+    var coords = getNineSliceList(startCoords[0], startCoords[1])[sliceIndex];
     coords[1][1] = [0,0];
     console.log(coords);
     return getBackgroundPositionString(coords);
   }
 };
-// var water = { backgroundPosition: "-96px -96px", name: "water" };
+
 var water = {
   name: "water",
-  backgroundPosition: function(sliceIndex) {
-    var startCoords = getTileSpriteCoords("water");
-    var coords =  getNineSliceList(startCoords[0], startCoords[1])[sliceIndex];
-    return getBackgroundPositionString(coords);
+  backgroundPosition: function() {
+    var coordList = [
+      [0, 48], [48, 48], [96, 48], [144, 48],
+      [0, 96], [48, 96], [96, 96], [144, 96]
+    ];
+    var randIndex = randint(0, 8);
+
+    // var startCoords = getTileSpriteCoords("water");
+    // var coords =  getNineSliceList(startCoords[0], startCoords[1])[sliceIndex];
+
+    return getBackgroundPositionString(coordList[randIndex]);
   }
 }
 
@@ -34,6 +41,3 @@ var tiles = [
 var teams = [
 	snake, mushroom, tree
 ]
-
-var tile_map_width = 1920;
-

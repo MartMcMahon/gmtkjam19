@@ -23,8 +23,15 @@
 		width: 100%;
 		clear: both;
 	}
-	.boardcell {
+  .subtile {
 		background-image: url('./gfx/Overworld.png');
+		display: block;
+		position: relative;
+		float: left;
+		height: 16px;
+		width: 16px;
+  }
+	.boardcell {
 		display: block;
 		position: relative;
 		float: left;
@@ -56,10 +63,15 @@
 <div class="wrapper">
 	<div class="gameboard">
 		<script>
+      var subTiles = "";
+      for (var c = 0; c < 9; c++) {
+        subTiles += "<div class='subtile' id='subtile-" + c + "'></div>";
+      }
+
 			for (var y=0; y<board_size[1];y++) {
 				document.write("<div class='row'>");
 				for (var x=0; x<board_size[0];x++) {
-					document.write("<div class='boardcell' id='tile-" + x + "-" + y + "'><div class='boardentity' id='entity-" + x + "-" + y + "'></div></div>")
+					document.write("<div class='boardcell' id='tile-" + x + "-" + y + "'>" + subTiles + "<div class='boardentity' id='entity-" + x + "-" + y + "'></div></div>");
 				}
 				document.write("</div>");
 			}
@@ -72,18 +84,6 @@
 		<button>Plague (category decimate)</button>
 		<button>Abiogenesis</button>
 	</div>
-  <div class="debugging">
-    <button onClick="debug_setSlice(0)">0</button>
-    <button onClick="debug_setSlice(1)">1</button>
-    <button onClick="debug_setSlice(2)">2</button>
-    <button onClick="debug_setSlice(3)">3</button>
-    <button onClick="debug_setSlice(4)">4</button>
-    <button onClick="debug_setSlice(5)">5</button>
-    <button onClick="debug_setSlice(6)">6</button>
-    <button onClick="debug_setSlice(7)">7</button>
-    <button onClick="debug_setSlice(8)">8</button>
-    <button onClick="debug_setSlice(9)">9</button>
-  </div>
 </div>
 
 <script src="assets.js"></script>

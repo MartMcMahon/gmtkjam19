@@ -30,6 +30,7 @@
 		background: green;
 		height: 100%;
 		width: 10%;
+		background-image: url('./gfx/Overworld.png');
 	}
 	.boardentity {
 		display: block;
@@ -175,7 +176,6 @@
 		var tile_elem = document.getElementById('tile-' + x + '-' + y);
 		var team_elem = document.getElementById('entity-' + x + '-' + y);
 
-    tile_elem.style.backgroundImage = "url('./gfx/Overworld.png')";
     tile_elem.style.backgroundPosition = tile.backgroundPosition;
     tile_elem.style.backgroundSize = "1920px";
 

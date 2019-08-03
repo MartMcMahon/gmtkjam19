@@ -26,6 +26,7 @@ function find_islands() {
 
 function init_board() {
 	board = {
+		round: 1,
 		tiles: [],
 		teams: []
 	}
@@ -157,13 +158,16 @@ function get_cell_at_coords(x, y) {
 				return null;
 			}
 			return get_cell_at_coords.apply(null, new_coords)
+		},
+		adjacent: function(opts) {
+			return get_adjacent_cells(x, y, opts.team, opts.tile);
 		}
 	}
 }
 function get_cells_for_coords(coords) {
 	var cells = [];
 	for (var i=0; i < coords.length; i++) {
-		cells.push(get_cell_at_coords(coords[0], coords[1]));
+		cells.push(get_cell_at_coords(coords[i][0], coords[i][1]));
 	}
 	return cells;
 }
@@ -181,8 +185,8 @@ function get_adjacent_cell(x, y, dx, dy) {
 function get_adjacent_cells_coords(x, y) {
 	var coords = [];
 	var point;
-	for (var xi=-1; xi<=1; i++) {
-		for (var yi=-1; yi<=1; i++) {
+	for (var xi=-1; xi<=1; xi++) {
+		for (var yi=-1; yi<=1; yi++) {
 			// skip the cell we're searching around
 			if (xi == 0 && yi == 0) continue;
 
@@ -192,14 +196,25 @@ function get_adjacent_cells_coords(x, y) {
 			if (point === null) {
 				continue
 			}
-
-			coords.append(point);
+			
+			coords.push(point);
 		}
 	}
 	return coords;
 }
-function get_adjacent_cells(x, y) {
-	return get_cells_for_coords(get_adjacent_cells_coords(x, y))
+function get_adjacent_cells(x, y, of_team, of_tile) {
+	var cells = get_cells_for_coords(get_adjacent_cells_coords(x, y));
+	if (of_team !== undefined) {
+		cells = cells.filter(function(cell) {
+			return cell.entity === of_team;
+		})
+	}
+	if (of_tile !== undefined) {
+		cells = cells.filter(function(cell) {
+			return cell.tile === of_tile;
+		})
+	}
+	return cells;
 }
 function get_board_stats(board) {
 	var tiles = {};

@@ -59,6 +59,22 @@ function find_occupied_cells(by_team) {
 	}
 	return coords;
 }
+function find_unoccupied_cells(by_team) {
+	var coords = [];
+	var occupied = find_occupied_cells(by_team);
+	for (var i=occupied.length; i--;) {
+		occupied[i] = occupied[i].join(',');
+	}
+	
+	for (var y=0; y<board_size[1];y++) {
+		for (var x=0; x<board_size[0];x++) {
+			var entity = board.teams[y][x];
+			if (occupied.indexOf(entity.join(',')) == -1) {
+				coords.push([x, y]);
+			}
+		}
+	}
+}
 function get_entity_count(of_team) {
 	return find_occupied_cells(of_team).length;
 }

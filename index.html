@@ -25,15 +25,27 @@
 	}
 	.boardcell {
 		display: block;
+		position: relative;
 		float: left;
 		background: green;
 		height: 100%;
 		width: 10%;
 	}
+	.boardentity {
+		display: block;
+		position: absolute;
+		top: 10%; right: 10%; bottom: 10%; left: 10%;
+		border-radius: 100%;
+	}
 	.controls {
 		float: left;
 		width: 440px;
 		margin-left: 20px;
+	}
+	button {
+		height: 40px;
+		width: 100%;
+		margin-bottom: 10px;
 	}
 </style>
 <script>
@@ -46,7 +58,7 @@
 			for (var y=0; y<board_size[1];y++) {
 				document.write("<div class='row'>");
 				for (var x=0; x<board_size[0];x++) {
-					document.write("<div class='boardcell' id='cell-" + x + "-" + y + "'></div>")
+					document.write("<div class='boardcell' id='tile-" + x + "-" + y + "'><div class='boardentity' id='entity-" + x + "-" + y + "'></div></div>")
 				}
 				document.write("</div>");
 			}
@@ -55,7 +67,7 @@
 	<div class="controls">
 		<div>Things Left</div>
 		<h1>10</h1>
-		<button>Decimate</button>
+		<button onClick="decimate()">Decimate</button>
 		<button>Plague (category decimate)</button>
 		<button>Abiogenesis</button>
 	</div>
@@ -63,39 +75,6 @@
 
 
 <script type="text/javascript">
-	// constants ////////////////////////////////////////////////////////////
-	var board;
-	var tiles = [
-		"green", "blue", "brown", "yellow"
-	]
-	var teams = [
-		"white", "black"
-	]
-	
-	
-	// actions ////////////////////////////////////////////////////////////
-	function get_entity_count() {
-		var n = 0;
-		for (var y=0; y<board_size[1];y++) {
-			for (var x=0; x<board_size[0];x++) {
-				if (board.teams[y][x]) {
-					n += 1;
-				}
-			}
-		}
-		return n;
-	}
-	function kill_x_random_things(n) {
-		
-	}
-	function decimate() {
-		for (var y=0; y<board_size[1];y++) {
-			for (var x=0; x<board_size[0];x++) {
-			
-			}
-		}
-	}
-
 	// utilities ////////////////////////////////////////////////////////////
 	function randint(min, max) {
 		return Math.floor(min + (Math.random() * (max-min)))
@@ -103,7 +82,67 @@
 	function choose(list) {
 		return list[randint(0, list.length)];
 	}
+	function shuffle(array) {
+		for (var i = array.length - 1; i > 0; i--) {
+			var j = Math.floor(Math.random() * (i + 1));
+			var temp = array[i];
+			array[i] = array[j];
+			array[j] = temp;
+		}
+		return array;
+	}
 	
+	
+	// constants ////////////////////////////////////////////////////////////
+	var board;
+	var grass = { color: "greenyellow" };
+	var water = { color: "blue" };
+	var desert = {color: "yellow"};
+	var forest = {color: "green"};
+	
+	var snake = {color: "red"};
+	var mushroom = {color: "black"};
+	var tree = {color: "brown"};
+	
+	var tiles = [
+		grass, water// , desert, forest
+	]
+	var teams = [
+		snake, mushroom, tree
+	]
+	
+	
+	// actions ////////////////////////////////////////////////////////////
+	function find_occupied_cells(by_team) {
+		var coords = [];
+		for (var y=0; y<board_size[1];y++) {
+			for (var x=0; x<board_size[0];x++) {
+				var entity = board.teams[y][x];
+				if (entity && (entity == by_team || by_team === undefined)) {
+					coords.push([x, y]);
+				}
+			}
+		}
+		return coords;
+	}
+	function get_entity_count(of_team) {
+		return find_occupied_cells(of_team).length;
+	}
+	function decimate(by_team) {
+		var occupied = find_occupied_cells(by_team);
+		occupied = shuffle(occupied);
+		for (var i=Math.ceil(occupied.length / 10); i--;) {
+			var coords = occupied[i];
+			var x = coords[0];
+			var y = coords[1];
+			
+			board.teams[y][x] = null;
+		}
+		render_board();
+	}
+	function spawn(by_team) {
+		
+	}
 	
 	function init_board() {
 		board = {
@@ -120,10 +159,8 @@
 		for (var y=0; y<board_size[1];y++) {
 			var row = [];
 			for (var x=0; x<board_size[0];x++) {
-				if (Math.random() > 0.8) {
-					row.push(teams[0])
-				} else if (Math.random() > 0.8) {
-					row.push(teams[1])
+				if (Math.random() > 0.7) {
+					row.push(choose(teams))
 				}
 				else {
 					row.push(null);
@@ -135,13 +172,11 @@
 	}
 	
 	function render_cell(x, y, tile, team) {
-		var elem = document.getElementById('cell-' + x + '-' + y);
-		if (team) {
-			elem.style.background = team;
-		}
-		else {
-			elem.style.background = tile;
-		}
+		var tile_elem = document.getElementById('tile-' + x + '-' + y);
+		var team_elem = document.getElementById('entity-' + x + '-' + y);
+		
+		tile_elem.style.background = tile.color;
+		team_elem.style.background = team ? team.color : 'transparent';
 	}
 	function render_board() {
 		for (var y=0; y<board_size[1];y++) {

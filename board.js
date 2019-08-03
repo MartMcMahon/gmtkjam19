@@ -6,7 +6,7 @@ function find_islands() {
 	for (var y=0; y<board_size[1];y++) {
 		for (var x=0; x<board_size[0];x++) {
 			cell = get_cell_at_coords(x, y);
-			
+
 			top = cell.at_offset(0, -1);
 			bottom = cell.at_offset(0, 1);
 			left = cell.at_offset(-1, 0);
@@ -59,11 +59,38 @@ function init_board() {
 }
 
 function render_cell(x, y, tile, team) {
+  console.log(Date.now());
 	var tile_elem = document.getElementById('tile-' + x + '-' + y);
 	var team_elem = document.getElementById('entity-' + x + '-' + y);
 
-	// tile_elem.style.backgroundPosition = tile.backgroundPosition;
-	tile_elem.style.backgroundPosition = tile.backgroundPosition(s_index);
+  if (tile === water) {
+    for (var c = 0; c < 9; c++) {
+      tile_elem.children[c].style.backgroundPosition = tile.backgroundPosition();
+    }
+  }
+  else if (tile === grass) {
+    for (var c = 0; c < 9; c++) {
+      tile_elem.children[c].style.backgroundPosition = tile.backgroundPosition(4);
+    };
+
+
+  }
+
+
+  var uptile = get_cell_at_coords(x, y).at_offset(0, -1);
+  if (uptile && uptile.tile.name === "water") {
+    tile_elem.children[0].style.backgroundPosition = tile.backgroundPosition(7);
+    tile_elem.children[1].style.backgroundPosition = tile.backgroundPosition(7);
+    tile_elem.children[2].style.backgroundPosition = tile.backgroundPosition(7);
+  }
+  var downtile = get_cell_at_coords(x, y).at_offset(0, 1);
+  if (downtile && downtile.tile.name === "water") {
+    tile_elem.children[6].style.backgroundPosition = tile.backgroundPosition(1);
+    tile_elem.children[7].style.backgroundPosition = tile.backgroundPosition(1);
+    tile_elem.children[8].style.backgroundPosition = tile.backgroundPosition(1);
+  }
+
+  console.log('child', tile_elem.children[1]);
 	tile_elem.style.backgroundSize = tile_map_width + "px";
 
   // team_elem.style.backgroundPosition = team && team.backgroundPosition;
@@ -154,9 +181,9 @@ function get_adjacent_cells_coords(x, y) {
 		for (var yi=-1; yi<=1; yi++) {
 			// skip the cell we're searching around
 			if (xi == 0 && yi == 0) continue;
-			
+
 			point = get_coords_with_offset(x, y, xi, yi);
-			
+
 			// skip outside the map
 			if (point === null) {
 				continue

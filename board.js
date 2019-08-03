@@ -59,7 +59,6 @@ function init_board() {
 }
 
 function render_cell(x, y, tile, team) {
-  console.log(Date.now());
 	var tile_elem = document.getElementById('tile-' + x + '-' + y);
 	var team_elem = document.getElementById('entity-' + x + '-' + y);
 
@@ -101,9 +100,10 @@ function render_cell(x, y, tile, team) {
 
 	tile_elem.style.backgroundSize = tile_map_width + "px";
 
-  team_elem.style.backgroundPosition = team && team.backgroundPosition;
-  team_elem.style.backgroundSize = tile_map_width + "px";
+  // team_elem.style.backgroundPosition = team && team.backgroundPosition;
+  // team_elem.style.backgroundSize = tile_map_width + "px";
   // team_elem.style.background = "transparent";
+  team_elem.style.backgroundImage = team && team.backgroundPosition;
 }
 function render_board() {
 	for (var y=0; y<board_size[1];y++) {
@@ -196,7 +196,7 @@ function get_adjacent_cells_coords(x, y) {
 			if (point === null) {
 				continue
 			}
-			
+
 			coords.push(point);
 		}
 	}

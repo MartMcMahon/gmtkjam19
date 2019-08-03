@@ -28,13 +28,29 @@ var water = {
   }
 }
 
-var snake = { backgroundPosition: "-1680px 0", name: "snake" };
-var mushroom = { backgroundPosition: "-1728px 0", name: "mushroom" };
-var tree = { backgroundPosition: "-1776px 0", name: "tree" };
+var bird = { name: "bird", backgroundImage: "gfx/ent-bird.png" };
+var bug = { name: "bug", backgroundImage: "ent-bug.png" };
+var dragon = { name: "dragon", backgroundImage: "ent-dragon.png" };
+var fish = { name: "fish", backgroundImage: "ent-fish.png" };
+var mushroom = { name: "mushroom", backgroundImage: "ent-mushroom.png" };
+var seaweed = { name: "seaweed", backgroundImage: "ent-seaweed.png" };
+var shark = { name: "shark", backgroundImage: "ent-shark.png" };
+var snail = { name: "snail", backgroundImage: "gfx/ent-snail.png" };
+var snake = { name: "snake", backgroundImage: "ent-snake.png" };
+var tree = { name: "tree", backgroundImage: "ent-tree.png" };
 
 var tiles = [
 	grass, water // , desert, forest
 ]
 var teams = [
-	snake, mushroom, tree
+	bird,
+  bug,
+  dragon,
+  fish,
+  mushroom,
+  seaweed,
+  shark,
+  snail,
+  snake,
+  tree
 ]

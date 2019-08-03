@@ -6,10 +6,11 @@ function getNineSliceList(x, y) {
   ];
 }
 
-// function getEntitySpriteCoords(entity) {
-//   switch (entity) {
-//   return;
-// }
+function getEntitySpriteCoords(entity) {
+  switch (entity) {
+    case "
+  return;
+}
 
 function getTileSpriteCoords(tile) {
   switch (tile) {

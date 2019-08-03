@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<meta charset=utf-8>
+<title>Only One</title>
+<style>
+	html, body {
+		margin: 0;
+		border: 0;
+		font-size: 16px;
+	}
+	.wrapper {
+		width: 940px;
+		padding: 10px;
+		margin: 0 auto;
+	}
+	.gameboard {
+		float: left;
+		height:  480px;
+		width: 480px;
+	}
+	.row {
+		height: 10%;
+		width: 100%;
+		clear: both;
+	}
+	.boardcell {
+		display: block;
+		float: left;
+		background: green;
+		height: 100%;
+		width: 10%;
+	}
+	.controls {
+		float: left;
+		width: 440px;
+		margin-left: 20px;
+	}
+</style>
+<script>
+	var board_size = [10, 10];
+</script>
+<body>
+<div class="wrapper">
+	<div class="gameboard">
+		<script>
+			for (var y=0; y<board_size[1];y++) {
+				document.write("<div class='row'>");
+				for (var x=0; x<board_size[0];x++) {
+					document.write("<div class='boardcell' id='cell-" + x + "-" + y + "'></div>")
+				}
+				document.write("</div>");
+			}
+		</script>
+	</div>
+	<div class="controls">
+		<div>Things Left</div>
+		<h1>10</h1>
+		<button>Decimate</button>
+		<button>Plague (category decimate)</button>
+		<button>Abiogenesis</button>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	// constants ////////////////////////////////////////////////////////////
+	var board;
+	var tiles = [
+		"green", "blue", "brown", "yellow"
+	]
+	var teams = [
+		"white", "black"
+	]
+
+
+	// actions ////////////////////////////////////////////////////////////
+	function get_entity_count() {
+		var n = 0;
+		for (var y=0; y<board_size[1];y++) {
+			for (var x=0; x<board_size[0];x++) {
+				if (board.teams[y][x]) {
+					n += 1;
+				}
+			}
+		}
+		return n;
+	}
+	function kill_x_random_things(n) {
+
+	}
+	function decimate() {
+		for (var y=0; y<board_size[1];y++) {
+			for (var x=0; x<board_size[0];x++) {
+
+			}
+		}
+	}
+
+	// utilities ////////////////////////////////////////////////////////////
+	function randint(min, max) {
+		return Math.floor(min + (Math.random() * (max-min)))
+	}
+	function choose(list) {
+		return list[randint(0, list.length)];
+	}
+
+
+	function init_board() {
+		board = {
+			tiles: [],
+			teams: []
+		}
+		for (var y=0; y<board_size[1];y++) {
+			var row = [];
+			for (var x=0; x<board_size[0];x++) {
+				row.push(choose(tiles))
+			}
+			board.tiles.push(row);
+		}
+		for (var y=0; y<board_size[1];y++) {
+			var row = [];
+			for (var x=0; x<board_size[0];x++) {
+				if (Math.random() > 0.8) {
+					row.push(teams[0])
+				} else if (Math.random() > 0.8) {
+					row.push(teams[1])
+				}
+				else {
+					row.push(null);
+				}
+
+			}
+			board.teams.push(row);
+		}
+	}
+
+  function getBackgroundPosition(x, y) {
+    const tileSize = 48;
+    return "-"+x*tileSize+"px " + "-"+y*tileSize+"px";
+  }
+
+	function render_cell(x, y, tile, team) {
+		var elem = document.getElementById('cell-' + x + '-' + y);
+		if (team) {
+			elem.style.background = team;
+      elem.style.backgroundImage = "url('./gfx/Overworld.png')";
+      // 640x576
+      elem.style.backgroundPosition = getBackgroundPosition(x, y);
+      // elem.style.backgroundSize = "1920px";
+		}
+		else {
+			elem.style.background = tile;
+		}
+	}
+	function render_board() {
+		for (var y=0; y<board_size[1];y++) {
+			for (var x=0; x<board_size[0];x++) {
+				render_cell(x, y,
+					board.tiles[y][x],
+					board.teams[y][x]
+				);
+			}
+		}
+	}
+
+
+	// Start the game
+	init_board()
+	render_board()
+</script>

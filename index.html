@@ -7,20 +7,53 @@
 		margin: 0;
 		border: 0;
 		font-size: 16px;
+		font-family: monospace;
+	}
+	html {
+		background-image: url('gfx/background.png');
+		background-repeat: no-repeat;
+		background-position: 0% top;
+		background-color: rgb(26, 35, 126);
+	}
+	body {
+		background: transparent url('gfx/cabinet.png') center -20px no-repeat;
+		padding: 5px 0;
 	}
 	.wrapper {
-		width: 940px;
-		padding: 10px;
-		margin: 0 auto;
+		position: relative;
+		width: 950px;
+		margin: 80px auto;
 	}
   .horiz-wrapper {
     display: inline-flex;
   }
+  .stats {
+  	position: absolute;
+  	top: -70px;
+  	right: 0;
+  	font-size: 16px;
+  	line-height: 36px;
+  }
+  .statblock {
+  	float: left;
+  	width: 180px;
+  	text-align: center;
+  	margin-left: 20px;
+  	background: rgba(0,0,0,0.7);
+  	border-radius: 20px;
+  	padding: 0 20px;
+  	color: #0c0;
+  }
+  .statblock span {
+  	font-weight: bold;
+  	color: #fff;
+  }
 	.gameboard {
-    border: 7px solid black;
+    border: 8px solid black;
 		float: left;
 		height:  480px;
 		width: 480px;
+		border-radius: 5px;
 	}
 	.row {
 		height: 10%;
@@ -56,15 +89,16 @@
   }
 	.controls {
 		float: left;
-		margin-left: 40px;
+		margin-left: 20px;
+		margin-top: 30px;
     text-align: -webkit-center;
-		width: 120px;
+		width: 300px;
 	}
   .controls > div {
     border-bottom: 2px solid #C1C1C1C1;
     margin-bottom: 10px;
     padding-bottom: 10px;
-    width: 100px;
+    width: 280px;
   }
   .controls-bottom {
     display: flex;
@@ -83,6 +117,7 @@
     margin: 0 auto;
   }
 	button {
+		font-family: monospace;
     display: inline-flex;
 		height: 40px;
     justify-content: center;
@@ -144,26 +179,29 @@
         }
       </script>
     </div>
+    <div class="stats">
+      <div class="statblock"><label>Species Left:</label> <span id="species-count"></span></div>
+      <div class="statblock"><label>Round:</label> <span id="round-number"></span></div>
+    </div>
     <div class="controls">
       <div>Plague</div>
-      <button class="plague-button" onClick="kill(plague_ratio, 'mushroom')"><img src="./gfx/ent-mushroom.gif" /></button>
-      <button class="plague-button" onClick="kill(plague_ratio, 'snail')"><img src="./gfx/ent-snail.png" /></button>
-      <button class="plague-button" onClick="kill(plague_ratio, 'bug')"><img src="./gfx/ent-bug.png" /></button>
-      <button class="plague-button" onClick="kill(plague_ratio, 'fish')"><img src="./gfx/ent-fish.png" /></button>
-      <button class="plague-button" onClick="kill(plague_ratio, 'seaweed')"><img src="./gfx/ent-seaweed.png" /></button>
       <button class="plague-button" onClick="kill(plague_ratio, 'tree')"><img src="./gfx/ent-tree.png" /></button>
+      <button class="plague-button" onClick="kill(plague_ratio, 'bug')"><img src="./gfx/ent-bug.png" /></button>
       <button class="plague-button" onClick="kill(plague_ratio, 'bird')"><img src="./gfx/ent-bird.png" /></button>
-      <button class="plague-button" onClick="kill(plague_ratio, 'snake')"><img src="./gfx/ent-snake.png" /></button>
       <button class="plague-button" onClick="kill(plague_ratio, 'dragon')"><img src="./gfx/ent-dragon.png" /></button>
+      <button class="plague-button" onClick="kill(plague_ratio, 'mushroom')"><img src="./gfx/ent-mushroom.gif" /></button>
+      
+      <button class="plague-button" onClick="kill(plague_ratio, 'seaweed')"><img src="./gfx/ent-seaweed.png" /></button>
+      <button class="plague-button" onClick="kill(plague_ratio, 'fish')"><img src="./gfx/ent-fish.png" /></button>
+      <button class="plague-button" onClick="kill(plague_ratio, 'snake')"><img src="./gfx/ent-snake.png" /></button>
       <button class="plague-button" onClick="kill(plague_ratio, 'shark')"><img src="./gfx/ent-shark.png" /></button>
+      <button class="plague-button" onClick="kill(plague_ratio, 'snail')"><img src="./gfx/ent-snail.png" /></button>      
     </div>
   </div>
   <div class="controls-bottom">
-    <div class="control-row">
-      <div>Species Left: <span id="species-count"></span></div>
-      <button class="tick-button" onMouseDown="fast_forward()" onMouseUp="normal_speed()">FF</button>
-      <div>Round: <span id="round-number"></span></div>
-    </div>
+  	<div class="control-row">
+			<button class="tick-button" onMouseDown="fast_forward()" onMouseUp="normal_speed()">FF</button>
+		</div>
     <div class="control-row">
       <div class="controls-bottom-left">
         <button class="no-fly-button" onClick=""><img src="./gfx/pixel-scarecrow.png" />No Fly Zone</button>

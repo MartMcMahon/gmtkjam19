@@ -30,10 +30,17 @@ function init_board() {
 		tiles: [],
 		teams: []
 	}
-
-  // generate random board
-  var grass_seed_list = [tree];
-  var water_seed_list = [seaweed];
+	
+	// create a board with no teams
+	for (var y=0; y<board_size[1];y++) {
+		var row = [];
+		for (var x=0; x<board_size[0];x++) {
+			row.push(null)
+		}
+		board.teams.push(row);
+  }
+	
+  // generate random land/water tiles
 	for (var y=0; y<board_size[1];y++) {
 		var row = [];
 		for (var x=0; x<board_size[0];x++) {
@@ -51,10 +58,13 @@ function init_board() {
 	}
 
   // spawn teams
+  board.teams = [];
+	var grass_seed_list = [tree, tree, tree, tree, tree, bug, bug, bug, bird, snake];
+  var water_seed_list = [seaweed, seaweed, seaweed, seaweed, seaweed, fish, fish, fish, bird, snake];
 	for (var y=0; y<board_size[1];y++) {
 		var row = [];
 		for (var x=0; x<board_size[0];x++) {
-			if (Math.random() > 0.6) {
+			if (Math.random() < 0.50) {
         console.log("" + x + " " + y, board.tiles[y][x]);
         if (board.tiles[y][x].name === "grass") {
           row.push(choose(grass_seed_list))

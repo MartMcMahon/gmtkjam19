@@ -20,12 +20,6 @@ function getSpritePixelsFromCoords(coords) {
   return [coords[0] * tile_size, coords[1] * tile_size];
 }
 
-// function getEntitySpriteCoords(entity) {
-//   switch (entity) {
-//     case "
-//   return;
-// }
-
 function getTileSpriteCoords(tile) {
   switch (tile) {
     case "grass": return [32, 96];

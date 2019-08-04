@@ -6,6 +6,7 @@ function hash(s) {
       h = (h << 5) - h + s.charCodeAt(i++) | 0;
   return h;
 };
+
 function deterministic_random_choice(cell, choices) {
 	var i = hash(board.round) + hash(cell.x & cell.y) + hash(choices.length);
 	return choices[i % choices.length];
@@ -51,6 +52,15 @@ function eat_or_move(board, critter, foods, tile_types) {
 
 function plant_growth(board, critter, tile_type) {
 	
+}
+
+function add_random_creature(teams) {
+		var team = choose(teams);
+		var cells = get_cells_for_coords(find_unoccupied_cells()).filter(function(cell) {
+			return team.habitat.indexOf(cell.tile) !== -1;
+		});
+		var cell = choose(cells);
+		board.teams[cell.y][cell.x] = team;
 }
 
 var critter_priority = [
@@ -123,6 +133,14 @@ function game_tick() {
 					console.log("got an unexpected critter in game_tick(): " + JSON.stringify(critter))
 			}
 		}
+	}
+	
+	var stats = get_board_stats(board);
+	if (stats.teams.bird > 10 && stats.teams.dragon < 2) {
+		add_random_creature([dragon]);
+	}
+	if (stats.teams.snake > 10 && stats.teams.shark < 2) {
+		add_random_creature([shark]);
 	}
 	
 	render_board();

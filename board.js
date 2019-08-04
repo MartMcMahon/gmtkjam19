@@ -59,8 +59,8 @@ function init_board() {
 
   // spawn teams
   board.teams = [];
-	var grass_seed_list = [tree, tree, tree, tree, tree, tree, bug, bug, snake, dragon];
-  var water_seed_list = [seaweed, seaweed, seaweed, seaweed, seaweed, seaweed, fish, fish, bird, shark];
+	var grass_seed_list = [tree, tree, tree, tree, tree, tree, bug, bug, snake];
+  var water_seed_list = [seaweed, seaweed, seaweed, seaweed, seaweed, seaweed, fish, fish, bird];
 	for (var y=0; y<board_size[1];y++) {
 		var row = [];
 		for (var x=0; x<board_size[0];x++) {
@@ -162,11 +162,12 @@ function find_unoccupied_cells(by_team) {
 	for (var y=0; y<board_size[1];y++) {
 		for (var x=0; x<board_size[0];x++) {
 			var entity = board.teams[y][x];
-			if (occupied.indexOf(entity.join(',')) == -1) {
+			if (occupied.indexOf(x + ',' + y) == -1) {
 				coords.push([x, y]);
 			}
 		}
 	}
+	return coords;
 }
 function get_entity_count(of_team) {
 	return find_occupied_cells(of_team).length;
@@ -242,7 +243,10 @@ function get_adjacent_cells(x, y, of_team, of_tile) {
 }
 function get_board_stats(board) {
 	var tiles = {};
-	var teams = {};
+	var teams = {
+		'shark': 0,
+		'dragon': 0,
+	};
 	var team_count = 0;
 
 	board.tiles.forEach(function(tilerow) {

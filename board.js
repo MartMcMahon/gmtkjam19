@@ -113,8 +113,8 @@ function render_board() {
 		}
 	}
 	var stats = get_board_stats(board);
-	document.getElementById("#species-count").innerText = stats.team_count;
-	document.getElementById("#round-number").innerText = board.round;
+	document.getElementById("species-count").innerText = stats.team_count;
+	document.getElementById("round-number").innerText = board.round;
 }
 
 function find_occupied_cells(by_team) {
@@ -230,6 +230,9 @@ function get_board_stats(board) {
 	});
 	board.teams.forEach(function(entityrow) {
 		entityrow.forEach(function(entity) {
+			if (entity === null) {
+				return
+			}
 			if (!teams[entity.name]) {
 				teams[entity.name] = 0;
 				team_count += 1;

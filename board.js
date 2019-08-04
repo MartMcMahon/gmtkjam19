@@ -65,7 +65,6 @@ function init_board() {
 		var row = [];
 		for (var x=0; x<board_size[0];x++) {
 			if (Math.random() < 0.40) {
-        console.log("" + x + " " + y, board.tiles[y][x]);
         if (board.tiles[y][x].name === "grass") {
           row.push(choose(grass_seed_list))
         } else if (board.tiles[y][x].name === "water") {

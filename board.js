@@ -30,18 +30,37 @@ function init_board() {
 		tiles: [],
 		teams: []
 	}
+
+  // generate random board
+  var grass_seed_list = [tree];
+  var water_seed_list = [seaweed];
 	for (var y=0; y<board_size[1];y++) {
 		var row = [];
 		for (var x=0; x<board_size[0];x++) {
 			row.push(choose(tiles))
 		}
 		board.tiles.push(row);
+  }
+
+  // nuke islands
+  var cell;
+	while (find_islands().length) {
+		cell = shuffle(find_islands())[0];
+		if      (cell.tile === tiles[0]) board.tiles[cell.y][cell.x] = tiles[1];
+		else if (cell.tile === tiles[1]) board.tiles[cell.y][cell.x] = tiles[0];
 	}
+
+  // spawn teams
 	for (var y=0; y<board_size[1];y++) {
 		var row = [];
 		for (var x=0; x<board_size[0];x++) {
-			if (Math.random() > 0.7) {
-				row.push(choose(teams))
+			if (Math.random() > 0.6) {
+        console.log("" + x + " " + y, board.tiles[y][x]);
+        if (board.tiles[y][x].name === "grass") {
+          row.push(choose(grass_seed_list))
+        } else if (board.tiles[y][x].name === "water") {
+          row.push(choose(water_seed_list))
+        }
 			}
 			else {
 				row.push(null);
@@ -49,12 +68,6 @@ function init_board() {
 
 		}
 		board.teams.push(row);
-	}
-	var cell;
-	while (find_islands().length) {
-		cell = shuffle(find_islands())[0];
-		if      (cell.tile === tiles[0]) board.tiles[cell.y][cell.x] = tiles[1];
-		else if (cell.tile === tiles[1]) board.tiles[cell.y][cell.x] = tiles[0];
 	}
 }
 
@@ -221,7 +234,7 @@ function get_board_stats(board) {
 	var tiles = {};
 	var teams = {};
 	var team_count = 0;
-	
+
 	board.tiles.forEach(function(tilerow) {
 		tilerow.forEach(function(tile) {
 			tiles[tile.name] = tiles[tile.name] || 0;
@@ -240,7 +253,7 @@ function get_board_stats(board) {
 			teams[entity.name] += 1;
 		});
 	});
-	
+
 	return {
 		round: board.round,
 		tiles: tiles,

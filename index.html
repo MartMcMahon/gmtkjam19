@@ -98,6 +98,12 @@
 	init_board();
 	render_board();
 	setInterval(function() {
+		setTimeout(function() {
+			render_board();
+		}, 666);
+		setTimeout(function() {
+			render_board();
+		}, 1333);
 		game_tick();
-	}, 1000);
+	}, 2000);
 </script>

@@ -102,6 +102,8 @@
 </style>
 <script>
 	var board_size = [10, 10];
+	var round_duration = 1200;
+	var ff_round_duration = round_duration / 10;
 </script>
 <body>
 <script src="ui.js"></script>
@@ -136,7 +138,7 @@
   <div class="controls-bottom">
     <div class="control-row">
       <div>Species Left: <span id="species-count"></span></div>
-      <button class="tick-button" onClick="game_tick()">tick</button>
+      <button class="tick-button" onMouseDown="fast_forward()" onMouseUp="normal_speed()">FF</button>
       <div>Round: <span id="round-number"></span></div>
     </div>
     <div class="control-row">
@@ -162,13 +164,6 @@
 <script type="text/javascript">
 	init_board();
 	render_board();
-	setInterval(function() {
-		setTimeout(function() {
-			render_board();
-		}, 400);
-		setTimeout(function() {
-			render_board();
-		}, 800);
-		game_tick();
-	}, 1200);
+	
+	run_game(round_duration);
 </script>

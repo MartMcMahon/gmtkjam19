@@ -75,6 +75,9 @@ function game_tick() {
 
 	var critter;
 	var critters = get_cells_for_coords(find_occupied_cells());
+	critters.forEach(function(critter) {
+		critter.age += 1;
+	});
 	critters.sort(function(a, b) {
 		return hash(board.round + "" + JSON.stringify(a)) < hash(board.round + "" + JSON.stringify(b))
 	})

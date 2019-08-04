@@ -55,7 +55,7 @@ function plant_growth(board, critter, tile_type) {
 }
 
 function add_random_creature(teams) {
-		var team = choose(teams);
+		var team = choose(teams)();
 		var cells = get_cells_for_coords(find_unoccupied_cells()).filter(function(cell) {
 			return team.habitat.indexOf(cell.tile) !== -1;
 		});

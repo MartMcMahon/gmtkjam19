@@ -37,34 +37,34 @@ function species(entity) {
 }
 
 function bird() {
-  return species({ name: "bird", backgroundImage: "./gfx/ent-bird.png", backgroundPosition: "50% 50%", habitat: [grass, water] });
+  return species({ constructor: bird, name: "bird", backgroundImage: "./gfx/ent-bird.png", backgroundPosition: "50% 50%", habitat: [grass, water] });
 }
 function bug() {
-  return species({ name: "bug", backgroundImage: "./gfx/ent-bug.png" , backgroundPosition: "50% 50%", habitat: [grass] });
+  return species({ constructor: bug, name: "bug", backgroundImage: "./gfx/ent-bug.png" , backgroundPosition: "50% 50%", habitat: [grass] });
 }
 function dragon() {
-  return species({ name: "dragon", backgroundImage: "./gfx/ent-dragon.png", backgroundPosition: "50% 50%", habitat: [grass] });
+  return species({ constructor: dragon, name: "dragon", backgroundImage: "./gfx/ent-dragon.png", backgroundPosition: "50% 50%", habitat: [grass] });
 }
 function fish() {
-  return species({ name: "fish", backgroundImage: "./gfx/ent-fish.png", backgroundPosition: "50% 50%", habitat: [water] });
+  return species({ constructor: fish, name: "fish", backgroundImage: "./gfx/ent-fish.png", backgroundPosition: "50% 50%", habitat: [water] });
 }
 function mushroom() {
-  return species({ name: "mushroom", backgroundImage: "./gfx/ent-mushroom.gif", backgroundPosition: "50% 50%", habitat: [grass] });
+  return species({ constructor: mushroom, name: "mushroom", backgroundImage: "./gfx/ent-mushroom.gif", backgroundPosition: "50% 50%", habitat: [grass] });
 }
 function seaweed() {
-  return species({ name: "seaweed", backgroundImage: "./gfx/ent-seaweed.png", backgroundPosition: "50% 50%", habitit: [water] });
+  return species({ constructor: seaweed, name: "seaweed", backgroundImage: "./gfx/ent-seaweed.png", backgroundPosition: "50% 50%", habitit: [water] });
 }
 function shark() {
-  return species({ name: "shark", backgroundImage: "./gfx/ent-shark.png", backgroundPosition: "50% 50%", habitat: [water] });
+  return species({ constructor: shark, name: "shark", backgroundImage: "./gfx/ent-shark.png", backgroundPosition: "50% 50%", habitat: [water] });
 }
 function snail() {
-  return species({ name: "snail", backgroundImage: "./gfx/ent-snail.png", backgroundPosition: "50% 50%", habitat: [water] });
+  return species({ constructor: snail, name: "snail", backgroundImage: "./gfx/ent-snail.png", backgroundPosition: "50% 50%", habitat: [water] });
 }
 function snake() {
-  return species({ name: "snake", backgroundImage: "./gfx/ent-snake.png", backgroundPosition: "50% 50%", habitat: [grass, water] });
+  return species({ constructor: snake, name: "snake", backgroundImage: "./gfx/ent-snake.png", backgroundPosition: "50% 50%", habitat: [grass, water] });
 }
 function tree() {
-  return species({ name: "tree", backgroundImage: "./gfx/ent-tree2.png", backgroundPosition: "50% 50%", habitat: [grass] });
+  return species({ constructor: tree, name: "tree", backgroundImage: "./gfx/ent-tree2.png", backgroundPosition: "50% 50%", habitat: [grass] });
 }
 
 var tiles = [
@@ -82,3 +82,8 @@ var teams = [
   snake,
   tree
 ]
+
+var team_lookup = {};
+for (var i=teams.length; i--;) {
+	team_lookup[teams[i]().name] = teams[i]
+}

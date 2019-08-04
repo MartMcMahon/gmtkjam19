@@ -35,7 +35,7 @@ var fish = { name: "fish", backgroundImage: "./gfx/ent-fish.png", backgroundPosi
 var mushroom = { name: "mushroom", backgroundImage: "./gfx/ent-mushroom.png", backgroundPosition: "50% 50%", habitat: ["grass"] };
 var seaweed = { name: "seaweed", backgroundImage: "./gfx/ent-seaweed.png", backgroundPosition: "50% 50%", habitit: ["water"] };
 var shark = { name: "shark", backgroundImage: "./gfx/ent-shark.png", backgroundPosition: "50% 50%", habitat: ["water"] };
-var snail = { name: "snail", backgroundImage: "./gfx/gfx/ent-snail.png", backgroundPosition: "50% 50%", habitat: ["water"] };
+var snail = { name: "snail", backgroundImage: "./gfx/ent-snail.png", backgroundPosition: "50% 50%", habitat: ["water"] };
 var snake = { name: "snake", backgroundImage: "./gfx/ent-snake.png", backgroundPosition: "50% 50%", habitat: ["grass", "water"] };
 var tree = { name: "tree", backgroundImage: "./gfx/ent-tree2.png", backgroundPosition: "50% 50%", habitat: ["grass"] };
 

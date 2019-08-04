@@ -39,19 +39,24 @@ function eat_or_move(board, critter, foods, tile_types) {
 	var food = find_food(critter, foods, tile_types);
 	if (food) {
 		board.teams[food.y][food.x] = critter.entity.constructor();
+		critter.entity.rounds_since_eating = 0
 		return;
 	}
-
+	else {
+		critter.entity.rounds_since_eating += 1;
+		if (critter.entity.rounds_since_eating > critter.entity.starvation_time) {
+		  var recycler = critter.tile.name == "grass" ? mushroom() : snail();
+			board.teams[critter.y][critter.x] = recycler;
+			return
+		}
+	}
+	
 	var destination = wander(critter, tile_types);
 	if (destination) {
 		board.teams[critter.y][critter.x] = null;
 		board.teams[destination.y][destination.x] = critter.entity;
 		return;
 	}
-}
-
-function plant_growth(board, critter, tile_type) {
-
 }
 
 function add_random_creature(teams) {
@@ -61,6 +66,25 @@ function add_random_creature(teams) {
 		});
 		var cell = choose(cells);
 		board.teams[cell.y][cell.x] = team;
+}
+
+function plant_growth(critter_class, tile_type, recycler_type) {
+  var critter_type = critter_class().name;
+	var destinations = [].concat(
+		get_cells_for_coords(find_occupied_cells(recycler_type)),
+		get_cells_for_coords(find_unoccupied_cells()).filter(function (cell) {
+			return cell.tile.name === tile_type
+		}),
+	);
+	destinations.filter(function(cell) {
+		var adjacent_friendlies = [].concat(
+			cell.adjacent({team: critter_type}),
+			cell.adjacent({team: recycler_type}),
+		);
+		return adjacent_friendlies.length >= 3;
+	}).forEach(function(cell) {
+		board.teams[cell.y][cell.x] = critter_class();
+	});
 }
 
 var critter_priority = [
@@ -118,17 +142,13 @@ function game_tick() {
 					eat_or_move(board, critter, ['seaweed'], ['water']);
 					break;
 
-				// Plants
+				// Plants (handled later)
 				case 'tree':
-					plant_growth(board, critter, grass);
-					break;
 				case 'seaweed':
-					plant_growth(board, critter, water);
-					break;
+					break
 
-				// Recyclers
+				// Recyclers (handled later)
 				case 'mushroom':
-					break;
 				case 'snail':
 					break
 
@@ -137,6 +157,9 @@ function game_tick() {
 			}
 		}
 	}
+	
+	plant_growth(tree, 'grass', 'mushroom');
+	plant_growth(seaweed, 'water', 'snail');
 
 	var stats = get_board_stats(board);
 	if (stats.teams.bird > 10 && stats.teams.dragon < 2) {

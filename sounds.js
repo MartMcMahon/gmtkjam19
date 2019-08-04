@@ -1,16 +1,17 @@
-var musicFile = document.createElement("audio");
-musicFile.preload = "auto";
+var testSong = document.createElement("audio");
+testSong.preload = "auto";
+
+var backgroundTracks = [];
+
 
 var src = document.createElement("source");
 src.src = "./sfx/re0.mp3";
-musicFile.appendChild(src);
-
-musicFile.load();
-// musicFile.volume =
-musicFile.play();
+testSong.appendChild(src);
+testSong.load();
 
 function playMusic() {
-  musicFile.currentTime = 0.01;
-  // musicFile.volume
-  setTimeout(function() { musicFile.play(); }, 1);
+  testSong.currentTime = 0.01;
+  setTimeout(function() { testSong.play(); }, 1);
+  document.getElementById("music-button").innerText = "playing";
 }
+

@@ -91,10 +91,10 @@ function game_tick() {
 	
 				// Predators
 				case bird:
-					eat_or_move(board, critter, [bug, fish, snake], [grass, water]);
+					eat_or_move(board, critter, [bug, snake], [grass, water]);
 					break;
 				case snake:
-					eat_or_move(board, critter, [bug, fish, bird], [grass, water]);
+					eat_or_move(board, critter, [fish, bird], [grass, water]);
 					break;
 	
 				// Herbavores

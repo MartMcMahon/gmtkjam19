@@ -59,8 +59,8 @@ function init_board() {
 
   // spawn teams
   board.teams = [];
-	var grass_seed_list = [tree, tree, tree, tree, tree, bug, bug, bug, bird, snake];
-  var water_seed_list = [seaweed, seaweed, seaweed, seaweed, seaweed, fish, fish, fish, bird, snake];
+	var grass_seed_list = [tree, tree, tree, tree, tree, tree, bug, bug, snake, dragon];
+  var water_seed_list = [seaweed, seaweed, seaweed, seaweed, seaweed, seaweed, fish, fish, bird, shark];
 	for (var y=0; y<board_size[1];y++) {
 		var row = [];
 		for (var x=0; x<board_size[0];x++) {

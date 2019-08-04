@@ -1,6 +1,13 @@
-
+function hash(s) {
+  s = "" + s;
+  var h = 0, l = s.length, i = 0;
+  if ( l > 0 )
+    while (i < l)
+      h = (h << 5) - h + s.charCodeAt(i++) | 0;
+  return h;
+};
 function deterministic_random_choice(cell, choices) {
-	var i = board.round + cell.x + cell.y + (choices.length * 3);
+	var i = hash(board.round) + hash(cell.x & cell.y) + hash(choices.length);
 	return choices[i % choices.length];
 }
 
@@ -18,29 +25,31 @@ function wander(critter, tile_types) {
 function find_food(critter, foods, tile_types) {
 	var food_options = [];
 	foods.forEach(function(food) {
-		food_options = food_options.concat(critter.adjacent({team: food, tile: tile_types}))
+	    tile_types.forEach(function(tile_type) {
+	    	food_options = food_options.concat(critter.adjacent({team: food, tile: tile_type}))
+	    });
 	});
 	if (!food_options.length) {
 		return null;
 	}
 	return deterministic_random_choice(critter, food_options);
 }
-function eat_or_move(newboard, critter, foods, tile_types) {
+function eat_or_move(board, critter, foods, tile_types) {
 	var food = find_food(critter, foods, tile_types);
 	if (food) {
-		newboard.teams[food.y][food.x] = critter.entity;
+		board.teams[food.y][food.x] = critter.entity;
 		return;
 	}
 	
 	var destination = wander(critter, tile_types);
 	if (destination) {
-		newboard.teams[critter.y][critter.x] = null;
-		newboard.teams[destination.y][destination.x] = critter.entity;
+		board.teams[critter.y][critter.x] = null;
+		board.teams[destination.y][destination.x] = critter.entity;
 		return;
 	}
 }
 
-function plant_growth(newboard, critter, tile_type) {
+function plant_growth(board, critter, tile_type) {
 	
 }
 
@@ -52,18 +61,13 @@ var critter_priority = [
 	mushroom, snail
 ]
 function game_tick() {
-	var newboard = {
-		round: board.round + 1,
-		tiles: board.tiles.map(function(tile_row) {
-			return tile_row.slice(0);
-		}),
-		teams: board.teams.map(function(team_row) {
-			return team_row.slice(0);
-		})
-	}
+	board.round += 1;
 	
 	var critter;
 	var critters = get_cells_for_coords(find_occupied_cells());
+	critters.sort(function(a, b) {
+		return hash(board.round + "" + JSON.stringify(a)) < hash(board.round + "" + JSON.stringify(b))
+	})
 	
 	for (var ci=0; ci < critter_priority.length; ci++) {
 		var critter_type = critter_priority[ci];
@@ -72,37 +76,41 @@ function game_tick() {
 			if (critter.entity !== critter_type) {
 				continue;
 			}
+			if (board.teams[critter.y][critter.x] !== critter.entity) {
+				continue;
+			}
+			
 			switch (critter.entity) {
 				// Apex Predators
 				case dragon:
-					eat_or_move(newboard, critter, [bird], [grass]);
+					eat_or_move(board, critter, [bird], [grass]);
 					break;
 				case shark:	
-					eat_or_move(newboard, critter, [snake], [water]);
+					eat_or_move(board, critter, [snake], [water]);
 					break;
 	
 				// Predators
 				case bird:
-					eat_or_move(newboard, critter, [bug, fish, snake], [grass, water]);
+					eat_or_move(board, critter, [bug, fish, snake], [grass, water]);
 					break;
 				case snake:
-					eat_or_move(newboard, critter, [bug, fish, bird], [grass, water]);
+					eat_or_move(board, critter, [bug, fish, bird], [grass, water]);
 					break;
 	
 				// Herbavores
 				case bug:
-					eat_or_move(newboard, critter, [tree], [grass]);
+					eat_or_move(board, critter, [tree], [grass]);
 					break;
 				case fish:
-					eat_or_move(newboard, critter, [seaweed], [water]);
+					eat_or_move(board, critter, [seaweed], [water]);
 					break;
 	
 				// Plants
 				case tree:
-					plant_growth(newboard, critter, grass);
+					plant_growth(board, critter, grass);
 					break;
 				case seaweed:
-					plant_growth(newboard, critter, water);
+					plant_growth(board, critter, water);
 					break;
 	
 				// Recyclers
@@ -117,6 +125,5 @@ function game_tick() {
 		}
 	}
 	
-	board = newboard;
 	render_board();
 }

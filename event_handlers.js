@@ -10,6 +10,8 @@ function decimate(by_team) {
 	}
 	render_board();
 }
-function spawn(by_team) {
-
+function spawn() {
+	for (var i=5; i--;) {
+		add_random_creature(teams);
+	}
 }

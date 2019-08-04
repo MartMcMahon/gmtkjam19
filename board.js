@@ -30,7 +30,7 @@ function init_board() {
 		tiles: [],
 		teams: []
 	}
-	
+
 	// create a board with no teams
 	for (var y=0; y<board_size[1];y++) {
 		var row = [];
@@ -39,7 +39,7 @@ function init_board() {
 		}
 		board.teams.push(row);
   }
-	
+
   // generate random land/water tiles
 	for (var y=0; y<board_size[1];y++) {
 		var row = [];
@@ -96,28 +96,44 @@ function render_cell(x, y, tile, team) {
     };
 
     var uptile = get_cell_at_coords(x, y).at_offset(0, -1);
-    if (uptile && uptile.tile.name === "water") {
-      tile_elem.children[0].style.backgroundPosition = tile.backgroundPosition(7);
-      tile_elem.children[1].style.backgroundPosition = tile.backgroundPosition(7);
-      tile_elem.children[2].style.backgroundPosition = tile.backgroundPosition(7);
-    }
-    var downtile = get_cell_at_coords(x, y).at_offset(0, 1);
-    if (downtile && downtile.tile.name === "water") {
-      tile_elem.children[6].style.backgroundPosition = tile.backgroundPosition(1);
-      tile_elem.children[7].style.backgroundPosition = tile.backgroundPosition(1);
-      tile_elem.children[8].style.backgroundPosition = tile.backgroundPosition(1);
-    }
     var lefttile = get_cell_at_coords(x, y).at_offset(-1, 0);
+    var downtile = get_cell_at_coords(x, y).at_offset(0, 1);
+    var righttile = get_cell_at_coords(x, y).at_offset(1, 0);
     if (lefttile && lefttile.tile.name === "water") {
       tile_elem.children[0].style.backgroundPosition = tile.backgroundPosition(5);
       tile_elem.children[3].style.backgroundPosition = tile.backgroundPosition(5);
       tile_elem.children[6].style.backgroundPosition = tile.backgroundPosition(5);
     }
-    var righttile = get_cell_at_coords(x, y).at_offset(1, 0);
     if (righttile && righttile.tile.name === "water") {
       tile_elem.children[2].style.backgroundPosition = tile.backgroundPosition(3);
       tile_elem.children[5].style.backgroundPosition = tile.backgroundPosition(3);
       tile_elem.children[8].style.backgroundPosition = tile.backgroundPosition(3);
+    }
+    if (uptile && uptile.tile.name === "water") {
+      if (lefttile && lefttile.tile.name === "water") {
+        tile_elem.children[0].style.backgroundPosition = tile.backgroundPosition(9);
+      } else {
+        tile_elem.children[0].style.backgroundPosition = tile.backgroundPosition(7);
+      }
+      tile_elem.children[1].style.backgroundPosition = tile.backgroundPosition(7);
+      if (righttile && righttile.tile.name === "water") {
+        tile_elem.children[2].style.backgroundPosition = tile.backgroundPosition(10);
+      } else {
+        tile_elem.children[2].style.backgroundPosition = tile.backgroundPosition(7);
+      }
+    }
+    if (downtile && downtile.tile.name === "water") {
+      if (lefttile && lefttile.tile.name === "water") {
+        tile_elem.children[6].style.backgroundPosition = tile.backgroundPosition(11);
+      } else {
+        tile_elem.children[6].style.backgroundPosition = tile.backgroundPosition(1);
+      }
+      tile_elem.children[7].style.backgroundPosition = tile.backgroundPosition(1);
+      if (righttile && righttile.tile.name === "water") {
+        tile_elem.children[8].style.backgroundPosition = tile.backgroundPosition(12);
+      } else {
+        tile_elem.children[8].style.backgroundPosition = tile.backgroundPosition(1);
+      }
     }
   }
 

@@ -1,11 +1,13 @@
-var tile_size = 48;
 var tile_map_width = 1920;
 
 var grass = {
   name: "grass",
   backgroundPosition: function(sliceIndex) {
-    var startCoords = getTileSpriteCoords("grass");
-    var coords = getNineSliceList(startCoords[0], startCoords[1])[sliceIndex];
+    // var startCoords = getTileSpriteCoords("grass");
+    // var startCoords = getGrassSprites();
+    // console.log(assets_grassSprites);
+    // var coords = getNineSliceList(startCoords[0], startCoords[1])[sliceIndex];
+    var coords = assets_grassSprites[sliceIndex];
     if (sliceIndex === 4) { coords = [0, 0]; }
     return getBackgroundPositionString(coords);
   }

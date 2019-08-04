@@ -193,6 +193,19 @@
     margin: 12px;
     width: 50px;
   }
+  #you-win {
+  	display: none;
+  	font-size: 100px;
+  	color: #fff;
+  	position: absolute;
+  	top: 0; right: 0; bottom: 0; left: 0;
+  	text-align: center;
+  	background: rgba(0,0,0,0.8);
+  	z-index: 99999999;
+  	line-height: 80vh;
+  	padding: 0;
+  	margin: 0;
+  }
 </style>
 <script>
 	var board_size = [10, 10];
@@ -203,6 +216,7 @@
 <body>
 <script src="ui.js"></script>
 <script src="sounds.js"></script>
+<div id='you-win'>YOU WIN!</div>
 <div class="info title-screen" id="title-screen" onClick='goto_story()'></div>
 <div class="info story-screen" id="story-screen" onClick='dismiss_story()'></div>
 <div class="info" id="info" onClick='toggle_info()'></div>

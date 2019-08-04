@@ -143,15 +143,6 @@
           document.write("</div>");
         }
 
-
-
-            function allBirds() {
-              for(var y=0; y < 10; y++) {
-                for(var x=0; x < 10; x++) {
-                  board.teams[y][x] = bird();
-                }
-              }
-            }
       </script>
     </div>
     <div class="controls">
@@ -166,7 +157,6 @@
       <button class="plague-button" onClick="kill(plague_ratio, 'snake')"><img src="./gfx/ent-snake.png" /></button>
       <button class="plague-button" onClick="kill(plague_ratio, 'dragon')"><img src="./gfx/ent-dragon.png" /></button>
       <button class="plague-button" onClick="kill(plague_ratio, 'shark')"><img src="./gfx/ent-shark.png" /></button>
-      <button onClick="allBirds()">all birds</button>
     </div>
   </div>
   <div class="controls-bottom">

@@ -12,6 +12,14 @@ function deterministic_random_choice(cell, choices) {
 	return choices[i % choices.length];
 }
 
+function allBirds() {
+  for(var y=0; y < 10; y++) {
+    for(var x=0; x < 10; x++) {
+      board.teams[y][x] = bird();
+    }
+  }
+}
+
 function wander(critter, tile_types) {
 	var destinations = [];
 	tile_types.forEach(function(tile_type) {

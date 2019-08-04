@@ -41,7 +41,7 @@ function eat_or_move(board, critter, foods, tile_types) {
 		board.teams[food.y][food.x] = critter.entity;
 		return;
 	}
-	
+
 	var destination = wander(critter, tile_types);
 	if (destination) {
 		board.teams[critter.y][critter.x] = null;
@@ -51,7 +51,7 @@ function eat_or_move(board, critter, foods, tile_types) {
 }
 
 function plant_growth(board, critter, tile_type) {
-	
+
 }
 
 function add_random_creature(teams) {
@@ -72,13 +72,13 @@ var critter_priority = [
 ]
 function game_tick() {
 	board.round += 1;
-	
+
 	var critter;
 	var critters = get_cells_for_coords(find_occupied_cells());
 	critters.sort(function(a, b) {
 		return hash(board.round + "" + JSON.stringify(a)) < hash(board.round + "" + JSON.stringify(b))
 	})
-	
+
 	for (var ci=0; ci < critter_priority.length; ci++) {
 		var critter_type = critter_priority[ci];
 		for (var i=0; i < critters.length; i++) {
@@ -89,16 +89,16 @@ function game_tick() {
 			if (board.teams[critter.y][critter.x] !== critter.entity) {
 				continue;
 			}
-			
+
 			switch (critter.entity) {
 				// Apex Predators
 				case dragon:
 					eat_or_move(board, critter, [bird], [grass]);
 					break;
-				case shark:	
+				case shark:
 					eat_or_move(board, critter, [snake], [water]);
 					break;
-	
+
 				// Predators
 				case bird:
 					eat_or_move(board, critter, [bug, snake], [grass, water]);
@@ -106,7 +106,7 @@ function game_tick() {
 				case snake:
 					eat_or_move(board, critter, [fish, bird], [grass, water]);
 					break;
-	
+
 				// Herbavores
 				case bug:
 					eat_or_move(board, critter, [tree], [grass]);
@@ -114,7 +114,7 @@ function game_tick() {
 				case fish:
 					eat_or_move(board, critter, [seaweed], [water]);
 					break;
-	
+
 				// Plants
 				case tree:
 					plant_growth(board, critter, grass);
@@ -122,19 +122,19 @@ function game_tick() {
 				case seaweed:
 					plant_growth(board, critter, water);
 					break;
-	
+
 				// Recyclers
 				case mushroom:
 					break;
 				case snail:
 					break
-				
+
 				default:
 					console.log("got an unexpected critter in game_tick(): " + JSON.stringify(critter))
 			}
 		}
 	}
-	
+
 	var stats = get_board_stats(board);
 	if (stats.teams.bird > 10 && stats.teams.dragon < 2) {
 		add_random_creature([dragon]);
@@ -142,6 +142,6 @@ function game_tick() {
 	if (stats.teams.snake > 10 && stats.teams.shark < 2) {
 		add_random_creature([shark]);
 	}
-	
+
 	render_board();
 }

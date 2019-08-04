@@ -30,16 +30,42 @@ var water = {
   }
 }
 
-var bird = { name: "bird", backgroundImage: "./gfx/ent-bird.png", backgroundPosition: "50% 50%", habitat: [grass, water] };
-var bug = { name: "bug", backgroundImage: "./gfx/ent-bug.png" , backgroundPosition: "50% 50%", habitat: [grass] };
-var dragon = { name: "dragon", backgroundImage: "./gfx/ent-dragon.png", backgroundPosition: "50% 50%", habitat: [grass] };
-var fish = { name: "fish", backgroundImage: "./gfx/ent-fish.png", backgroundPosition: "50% 50%", habitat: [water] };
-var mushroom = { name: "mushroom", backgroundImage: "./gfx/ent-mushroom.gif", backgroundPosition: "50% 50%", habitat: [grass] };
-var seaweed = { name: "seaweed", backgroundImage: "./gfx/ent-seaweed.png", backgroundPosition: "50% 50%", habitit: [water] };
-var shark = { name: "shark", backgroundImage: "./gfx/ent-shark.png", backgroundPosition: "50% 50%", habitat: [water] };
-var snail = { name: "snail", backgroundImage: "./gfx/ent-snail.png", backgroundPosition: "50% 50%", habitat: [water] };
-var snake = { name: "snake", backgroundImage: "./gfx/ent-snake.png", backgroundPosition: "50% 50%", habitat: [grass, water] };
-var tree = { name: "tree", backgroundImage: "./gfx/ent-tree2.png", backgroundPosition: "50% 50%", habitat: [grass] };
+function species(entity) {
+	entity._type = "species";
+	entity.age = 0
+	return entity
+}
+
+function bird() {
+  return species({ name: "bird", backgroundImage: "./gfx/ent-bird.png", backgroundPosition: "50% 50%", habitat: [grass, water] });
+}
+function bug() {
+  return species({ name: "bug", backgroundImage: "./gfx/ent-bug.png" , backgroundPosition: "50% 50%", habitat: [grass] });
+}
+function dragon() {
+  return species({ name: "dragon", backgroundImage: "./gfx/ent-dragon.png", backgroundPosition: "50% 50%", habitat: [grass] });
+}
+function fish() {
+  return species({ name: "fish", backgroundImage: "./gfx/ent-fish.png", backgroundPosition: "50% 50%", habitat: [water] });
+}
+function mushroom() {
+  return species({ name: "mushroom", backgroundImage: "./gfx/ent-mushroom.gif", backgroundPosition: "50% 50%", habitat: [grass] });
+}
+function seaweed() {
+  return species({ name: "seaweed", backgroundImage: "./gfx/ent-seaweed.png", backgroundPosition: "50% 50%", habitit: [water] });
+}
+function shark() {
+  return species({ name: "shark", backgroundImage: "./gfx/ent-shark.png", backgroundPosition: "50% 50%", habitat: [water] });
+}
+function snail() {
+  return species({ name: "snail", backgroundImage: "./gfx/ent-snail.png", backgroundPosition: "50% 50%", habitat: [water] });
+}
+function snake() {
+  return species({ name: "snake", backgroundImage: "./gfx/ent-snake.png", backgroundPosition: "50% 50%", habitat: [grass, water] });
+}
+function tree() {
+  return species({ name: "tree", backgroundImage: "./gfx/ent-tree2.png", backgroundPosition: "50% 50%", habitat: [grass] });
+}
 
 var tiles = [
 	grass, water // , desert, forest

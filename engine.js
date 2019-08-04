@@ -93,26 +93,26 @@ function game_tick() {
 			switch (critter.entity) {
 				// Apex Predators
 				case dragon:
-					eat_or_move(board, critter, [bird], [grass]);
+					eat_or_move(board, critter, ['bird'], ['grass']);
 					break;
-				case shark:
-					eat_or_move(board, critter, [snake], [water]);
+				case shark:	
+					eat_or_move(board, critter, ['snake'], ['water']);
 					break;
 
 				// Predators
 				case bird:
-					eat_or_move(board, critter, [bug, snake], [grass, water]);
+					eat_or_move(board, critter, ['bug', 'snake'], ['grass', 'water']);
 					break;
 				case snake:
-					eat_or_move(board, critter, [fish, bird], [grass, water]);
+					eat_or_move(board, critter, ['fish', 'bird'], ['grass', 'water']);
 					break;
 
 				// Herbavores
 				case bug:
-					eat_or_move(board, critter, [tree], [grass]);
+					eat_or_move(board, critter, ['tree'], ['grass']);
 					break;
 				case fish:
-					eat_or_move(board, critter, [seaweed], [water]);
+					eat_or_move(board, critter, ['seaweed'], ['water']);
 					break;
 
 				// Plants

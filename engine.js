@@ -50,7 +50,7 @@ function eat_or_move(board, critter, foods, tile_types) {
 			return
 		}
 	}
-	
+
 	var destination = wander(critter, tile_types);
 	if (destination) {
 		board.teams[critter.y][critter.x] = null;
@@ -90,6 +90,18 @@ function plant_growth(critter_class, tile_type, recycler_type) {
 	});
 }
 
+function addScarecrow(coords) {
+  console.log('adding scarecrow here', coords);
+  console.log(board.teams);
+}
+
+function addNoStep(coords) {
+  console.log('adding no step here', coords);
+}
+
+
+
+
 var critter_priority = [
 	'dragon', 'shark',
 	'bird', 'snake',
@@ -125,7 +137,7 @@ function game_tick() {
 				case 'dragon':
 					eat_or_move(board, critter, ['bird'], ['grass']);
 					break;
-				case 'shark':	
+				case 'shark':
 					eat_or_move(board, critter, ['snake'], ['water']);
 					break;
 
@@ -160,7 +172,7 @@ function game_tick() {
 			}
 		}
 	}
-	
+
 	plant_growth(tree, 'grass', 'mushroom');
 	plant_growth(seaweed, 'water', 'snail');
 

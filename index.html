@@ -13,6 +13,9 @@
 		padding: 10px;
 		margin: 0 auto;
 	}
+  .horiz-wrapper {
+    display: inline-flex;
+  }
 	.gameboard {
     border: 7px solid black;
 		float: left;
@@ -46,16 +49,56 @@
 		background-size: 85%;
 		background-repeat: no-repeat;
 	}
+  .bottom-cabinet {
+    background-image: url('./gfx/bottom-cabinet.svg');
+    height: 100px;
+    width: 500px;
+  }
 	.controls {
 		float: left;
-		width: 440px;
+		width: 320px;
 		margin-left: 20px;
 	}
+  .controls-bottom {
+    display: flex;
+    flex-direction: column;
+    margin: 0 6px;
+    width: 480px;
+  }
+  .control-row {
+    display: flex;
+    flex-direction: row;
+  }
+  .controls-bottom-left {
+    margin: 0 auto;
+  }
+  .controls-bottom-right {
+    margin: 0 auto;
+  }
 	button {
 		height: 40px;
 		width: 100%;
 		margin-bottom: 10px;
 	}
+  .spawn-button {
+    background: #4f6d9e;
+    color: white;
+  }
+  .decimate-button {
+    background: #FB4945;
+    color: white;
+  }
+  .no-fly-button {
+    background: #4D7E90;
+    color: white;
+  }
+  .legs-only-button {
+    background: #8A66CA;
+    color: white;
+  }
+  .tick-button {
+    height: unset;
+  }
 </style>
 <script>
 	var board_size = [10, 10];
@@ -64,31 +107,49 @@
 <script src="ui.js"></script>
 <script src="sounds.js"></script>
 <div class="wrapper">
-	<div class="gameboard">
-		<script>
-      var subTiles = "";
-      for (var c = 0; c < 9; c++) {
-        subTiles += "<div class='subtile' id='subtile-" + c + "'></div>";
-      }
+  <div class="horiz-wrapper">
+    <div class="gameboard">
+      <script>
+        var subTiles = "";
+        for (var c = 0; c < 9; c++) {
+          subTiles += "<div class='subtile' id='subtile-" + c + "'></div>";
+        }
 
-			for (var y=0; y<board_size[1];y++) {
-				document.write("<div class='row'>");
-				for (var x=0; x<board_size[0];x++) {
-					document.write("<div class='boardcell' id='tile-" + x + "-" + y + "' onClick='select_tile(id)' onmouseover='mouseOver(id)' onmouseleave='mouseLeave(id)' >" + subTiles + "<div class='boardentity' id='entity-" + x + "-" + y + "'></div></div>");
-				}
-				document.write("</div>");
-			}
-		</script>
-	</div>
-	<div class="controls">
-		<div>Species Left: <span id="species-count"></span></div>
-		<div>Round: <span id="round-number"></span></div>
-
-		<button onClick="game_tick()">tick</button>
-		<button onClick="decimate()">Decimate</button>
-		<button onClick="spawn()">Spawn</button>
-		<button>Plague (category decimate)</button>
-	</div>
+        for (var y=0; y<board_size[1];y++) {
+          document.write("<div class='row'>");
+          for (var x=0; x<board_size[0];x++) {
+            document.write("<div class='boardcell' id='tile-" + x + "-" + y + "' onClick='select_tile(id)' onmouseover='mouseOver(id)' onmouseleave='mouseLeave(id)' >" + subTiles + "<div class='boardentity' id='entity-" + x + "-" + y + "'></div></div>");
+          }
+          document.write("</div>");
+        }
+      </script>
+    </div>
+    <div class="controls">
+      <button>Plague (category decimate)</button>
+      <button>Plague (category decimate)</button>
+      <button>Plague (category decimate)</button>
+      <button>Plague (category decimate)</button>
+      <button>Plague (category decimate)</button>
+      <button>Plague (category decimate)</button>
+    </div>
+  </div>
+  <div class="controls-bottom">
+    <div class="control-row">
+      <div>Species Left: <span id="species-count"></span></div>
+      <button class="tick-button" onClick="game_tick()">tick</button>
+      <div>Round: <span id="round-number"></span></div>
+    </div>
+    <div class="control-row">
+      <div class="controls-bottom-left">
+        <button class="no-fly-button" onClick="">No Fly Zone</button>
+        <button class="legs-only-button" onClick="">Legs Only</button>
+      </div>
+      <div class="controls-bottom-right">
+        <button class="spawn-button" onClick="spawn()">Spawn</button>
+        <button class="decimate-button" onClick="decimate()">Decimate</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <button class="music-button">music</button>

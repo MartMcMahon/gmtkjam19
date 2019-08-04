@@ -38,7 +38,7 @@ function find_food(critter, foods, tile_types) {
 function eat_or_move(board, critter, foods, tile_types) {
 	var food = find_food(critter, foods, tile_types);
 	if (food) {
-		board.teams[food.y][food.x] = critter.entity;
+		board.teams[food.y][food.x] = critter.entity.constructor();
 		return;
 	}
 
@@ -55,7 +55,7 @@ function plant_growth(board, critter, tile_type) {
 }
 
 function add_random_creature(teams) {
-		var team = choose(teams);
+		var team = choose(teams)();
 		var cells = get_cells_for_coords(find_unoccupied_cells()).filter(function(cell) {
 			return team.habitat.indexOf(cell.tile) !== -1;
 		});
@@ -64,11 +64,11 @@ function add_random_creature(teams) {
 }
 
 var critter_priority = [
-	dragon, shark,
-	bird, snake,
-	bug, fish,
-	tree, seaweed,
-	mushroom, snail
+	'dragon', 'shark',
+	'bird', 'snake',
+	'bug', 'fish',
+	'tree', 'seaweed',
+	'mushroom', 'snail'
 ]
 function game_tick() {
 	board.round += 1;
@@ -83,50 +83,50 @@ function game_tick() {
 		var critter_type = critter_priority[ci];
 		for (var i=0; i < critters.length; i++) {
 			critter = critters[i];
-			if (critter.entity !== critter_type) {
+			if (critter.entity.name !== critter_type) {
 				continue;
 			}
-			if (board.teams[critter.y][critter.x] !== critter.entity) {
+			if (board.teams[critter.y][critter.x].name !== critter.entity.name) {
 				continue;
 			}
 
-			switch (critter.entity) {
+			switch (critter.entity.name) {
 				// Apex Predators
-				case dragon:
-					eat_or_move(board, critter, [bird], [grass]);
+				case 'dragon':
+					eat_or_move(board, critter, ['bird'], ['grass']);
 					break;
-				case shark:
-					eat_or_move(board, critter, [snake], [water]);
+				case 'shark':	
+					eat_or_move(board, critter, ['snake'], ['water']);
 					break;
 
 				// Predators
-				case bird:
-					eat_or_move(board, critter, [bug, snake], [grass, water]);
+				case 'bird':
+					eat_or_move(board, critter, ['bug', 'snake'], ['grass', 'water']);
 					break;
-				case snake:
-					eat_or_move(board, critter, [fish, bird], [grass, water]);
+				case 'snake':
+					eat_or_move(board, critter, ['fish', 'bird'], ['grass', 'water']);
 					break;
 
 				// Herbavores
-				case bug:
-					eat_or_move(board, critter, [tree], [grass]);
+				case 'bug':
+					eat_or_move(board, critter, ['tree'], ['grass']);
 					break;
-				case fish:
-					eat_or_move(board, critter, [seaweed], [water]);
+				case 'fish':
+					eat_or_move(board, critter, ['seaweed'], ['water']);
 					break;
 
 				// Plants
-				case tree:
+				case 'tree':
 					plant_growth(board, critter, grass);
 					break;
-				case seaweed:
+				case 'seaweed':
 					plant_growth(board, critter, water);
 					break;
 
 				// Recyclers
-				case mushroom:
+				case 'mushroom':
 					break;
-				case snail:
+				case 'snail':
 					break
 
 				default:

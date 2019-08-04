@@ -66,9 +66,9 @@ function init_board() {
 		for (var x=0; x<board_size[0];x++) {
 			if (Math.random() < 0.40) {
         if (board.tiles[y][x].name === "grass") {
-          row.push(choose(grass_seed_list))
+          row.push(choose(grass_seed_list)())
         } else if (board.tiles[y][x].name === "water") {
-          row.push(choose(water_seed_list))
+          row.push(choose(water_seed_list)())
         }
 			}
 			else {
@@ -160,7 +160,7 @@ function find_occupied_cells(by_team) {
 	for (var y=0; y<board_size[1];y++) {
 		for (var x=0; x<board_size[0];x++) {
 			var entity = board.teams[y][x];
-			if (entity && (entity == by_team || by_team === undefined)) {
+			if (entity && (entity.name == by_team || by_team === undefined)) {
 				coords.push([x, y]);
 			}
 		}
@@ -246,12 +246,15 @@ function get_adjacent_cells(x, y, of_team, of_tile) {
 	var cells = get_cells_for_coords(get_adjacent_cells_coords(x, y));
 	if (of_team !== undefined) {
 		cells = cells.filter(function(cell) {
-			return cell.entity === of_team;
+			if (cell.entity === null) {
+				return cell.entity === of_team;
+			}
+			return cell.entity.name === of_team;
 		})
 	}
 	if (of_tile !== undefined) {
 		cells = cells.filter(function(cell) {
-			return cell.tile === of_tile;
+			return cell.tile.name === of_tile;
 		})
 	}
 	return cells;

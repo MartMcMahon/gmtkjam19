@@ -38,7 +38,7 @@ function find_food(critter, foods, tile_types) {
 function eat_or_move(board, critter, foods, tile_types) {
 	var food = find_food(critter, foods, tile_types);
 	if (food) {
-		board.teams[food.y][food.x] = critter.entity;
+		board.teams[food.y][food.x] = critter.entity.constructor();
 		return;
 	}
 

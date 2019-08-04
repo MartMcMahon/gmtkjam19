@@ -125,6 +125,35 @@
   .controls-bottom-right {
     margin: 0 auto;
   }
+  .info-button {
+  	position: absolute;
+  	top: -65px;
+  	right: -50px;
+  	z-index: 9;
+  	height: 24px;
+  	width: 24px;
+  	line-height: 24px;
+  	font-size: 12px;
+  	border-radius: 12px;
+  	background: #fff;
+  	border: 1px solid #999;
+  	padding: 0;
+  }
+  .info {
+  	display: none;
+  	position: absolute;
+  	top: 0; right: 0; bottom: 0; left: 0;
+  	background: rgb(217, 217, 217) url('gfx/info.png') 50% no-repeat;
+  	z-index: 99999;
+  }
+  .info.title-screen {
+  	background-color: rgb(236,236,236);
+  	background-image: url('gfx/title-screen.png');
+  	display: block;
+  }
+  .info.story-screen {
+  	background-image: url('gfx/story-screen.png');
+  }
 	button {
 		font-family: monospace;
     display: inline-flex;
@@ -174,7 +203,11 @@
 <body>
 <script src="ui.js"></script>
 <script src="sounds.js"></script>
+<div class="info title-screen" id="title-screen" onClick='goto_story()'></div>
+<div class="info story-screen" id="story-screen" onClick='dismiss_story()'></div>
+<div class="info" id="info" onClick='toggle_info()'></div>
 <div class="wrapper">
+	<button onClick='toggle_info()' class="info-button">i</button>
   <div class="horiz-wrapper">
     <div class="gameboard">
       <script>
@@ -239,6 +272,4 @@
 <script type="text/javascript">
 	init_board();
 	render_board();
-
-	run_game(round_duration);
 </script>

@@ -26,7 +26,7 @@ function find_islands() {
 
 function init_board() {
 	board = {
-		round: 1,
+		round: 0,
 		tiles: [],
 		teams: []
 	}

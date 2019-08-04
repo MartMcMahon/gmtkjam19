@@ -11,6 +11,27 @@ function kill(percentage, by_team) {
 	render_board();
 }
 
+info_shown = false;
+function toggle_info() {
+	var info = document.getElementById('info');
+	if (info_shown) {
+		info.style.display = 'none';
+	}
+	else {
+		info.style.display = 'block';
+	}
+	info_shown = !info_shown;
+}
+
+function goto_story() {
+	document.getElementById('title-screen').style.display = 'none';
+	document.getElementById('story-screen').style.display = 'block';
+}
+function dismiss_story() {
+	document.getElementById('story-screen').style.display = 'none';
+	run_game(round_duration);
+}
+
 function spawn() {
 	for (var i=8; i--;) {
 		add_random_creature(teams);

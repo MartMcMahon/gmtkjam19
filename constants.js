@@ -29,9 +29,9 @@ var water = {
 }
 
 var bird = { name: "bird", backgroundImage: "./gfx/ent-bird.png", backgroundPosition: "50% 50%", habitat: ["grass", "water"] };
-var bug = { name: "bug", backgroundImage: "./gfx/ent-bug.png" , backgroundPosition: "50% 50%" habitat: ["grass"] };
+var bug = { name: "bug", backgroundImage: "./gfx/ent-bug.png" , backgroundPosition: "50% 50%", habitat: ["grass"] };
 var dragon = { name: "dragon", backgroundImage: "./gfx/ent-dragon.png", backgroundPosition: "50% 50%", habitat: ["grass"] };
-var fish = { name: "fish", backgroundImage: "./gfx/ent-fish.png", backgroundPosition: "50% 50%" habitat: ["water"] };
+var fish = { name: "fish", backgroundImage: "./gfx/ent-fish.png", backgroundPosition: "50% 50%", habitat: ["water"] };
 var mushroom = { name: "mushroom", backgroundImage: "./gfx/ent-mushroom.png", backgroundPosition: "50% 50%", habitat: ["grass"] };
 var seaweed = { name: "seaweed", backgroundImage: "./gfx/ent-seaweed.png", backgroundPosition: "50% 50%", habitit: ["water"] };
 var shark = { name: "shark", backgroundImage: "./gfx/ent-shark.png", backgroundPosition: "50% 50%", habitat: ["water"] };

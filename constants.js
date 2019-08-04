@@ -15,16 +15,16 @@ var water = {
   name: "water",
   backgroundPosition: function() {
     var coordList = [
-      [48, 112], [0, 48], [48, 48], [96, 48], [144, 48],
-      [0, 96], [48, 96], [96, 96], [144, 96]
+      [48, 112],
+      [0, 16], [16, 16], [32, 16], [48, 16],
+      [0, 32], [16, 32], [32, 32], [48, 32]
     ];
-    // var randIndex = randint(0, 8);
-    var randIndex = 0;
+    var index = 0;
+    if (Math.random() < 0.10) {
+      index = randint(1, 9);
+    }
 
-    // var startCoords = getTileSpriteCoords("water");
-    // var coords =  getNineSliceList(startCoords[0], startCoords[1])[sliceIndex];
-
-    return getBackgroundPositionString(coordList[randIndex]);
+    return getBackgroundPositionString(coordList[index]);
   }
 }
 

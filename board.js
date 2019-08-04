@@ -112,6 +112,9 @@ function render_board() {
 			);
 		}
 	}
+	var stats = get_board_stats(board);
+	document.getElementById("species-count").innerText = stats.team_count;
+	document.getElementById("round-number").innerText = board.round;
 }
 
 function find_occupied_cells(by_team) {
@@ -217,4 +220,31 @@ function get_adjacent_cells(x, y, of_team, of_tile) {
 function get_board_stats(board) {
 	var tiles = {};
 	var teams = {};
+	var team_count = 0;
+	
+	board.tiles.forEach(function(tilerow) {
+		tilerow.forEach(function(tile) {
+			tiles[tile.name] = tiles[tile.name] || 0;
+			tiles[tile.name] += 1;
+		});
+	});
+	board.teams.forEach(function(entityrow) {
+		entityrow.forEach(function(entity) {
+			if (entity === null) {
+				return
+			}
+			if (!teams[entity.name]) {
+				teams[entity.name] = 0;
+				team_count += 1;
+			}
+			teams[entity.name] += 1;
+		});
+	});
+	
+	return {
+		round: board.round,
+		tiles: tiles,
+		teams: teams,
+		team_count: team_count,
+	}
 }

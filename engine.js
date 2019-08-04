@@ -40,6 +40,10 @@ function eat_or_move(newboard, critter, foods, tile_types) {
 	}
 }
 
+function plant_growth(newboard, critter, tile_type) {
+	
+}
+
 
 function game_tick() {
 	var newboard = {
@@ -83,8 +87,10 @@ function game_tick() {
 	
 			// Plants
 			case tree:
+				plant_growth(newboard, critter, grass);
 				break;
 			case seaweed:
+				plant_growth(newboard, critter, water);
 				break;
 	
 			// Recyclers
@@ -97,8 +103,6 @@ function game_tick() {
 				console.log("got an unexpected critter in game_tick(): " + JSON.stringify(critter))
 		}
 	}
-	
-	
 	
 	board = newboard;
 	render_board();

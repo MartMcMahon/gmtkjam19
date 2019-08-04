@@ -105,7 +105,7 @@ function plant_growth(critter_class, tile_type, recycler_type) {
 			cell.adjacent({team: critter_type}),
 			cell.adjacent({team: recycler_type}),
 		);
-		return adjacent_friendlies.length >= 2;	
+		return adjacent_friendlies.length >= 2;
 	}).forEach(function(cell) {
 		board.teams[cell.y][cell.x] = critter_class();
 	});
@@ -195,4 +195,17 @@ function game_tick() {
 	}
 
 	render_board();
+
+  if (stats.team_count === 1) {
+    stop_game();
+    var div = document.createElement("h1");
+    div.style.lineHeight = '100%';
+    div.style.position = 'absolute';
+    div.style.top = 0;
+    div.style.left = 0;
+    div.style.fontSize = '100px';
+    div.appendChild(document.createTextNode("YOU WIN!"));
+    document.body.appendChild(div);
+  }
+
 }

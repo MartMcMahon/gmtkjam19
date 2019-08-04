@@ -1,7 +1,7 @@
-function decimate(by_team) {
+function kill(percentage, by_team) {
 	var occupied = find_occupied_cells(by_team);
 	occupied = shuffle(occupied);
-	for (var i=Math.ceil(occupied.length / 10); i--;) {
+	for (var i=Math.ceil(occupied.length * percentage); i--;) {
 		var coords = occupied[i];
 		var x = coords[0];
 		var y = coords[1];
@@ -10,8 +10,9 @@ function decimate(by_team) {
 	}
 	render_board();
 }
+
 function spawn() {
-	for (var i=5; i--;) {
+	for (var i=8; i--;) {
 		add_random_creature(teams);
 	}
 }

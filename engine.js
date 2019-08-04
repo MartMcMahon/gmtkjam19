@@ -82,6 +82,9 @@ function add_random_creature(teams) {
 }
 
 function plant_growth(critter_class, tile_type, recycler_type) {
+	if (board.round % 3 !== 0) {
+		return;
+	}
   var critter_type = critter_class().name;
 	var destinations = [].concat(
 		get_cells_for_coords(find_occupied_cells(recycler_type)),
@@ -94,7 +97,7 @@ function plant_growth(critter_class, tile_type, recycler_type) {
 			cell.adjacent({team: critter_type}),
 			cell.adjacent({team: recycler_type}),
 		);
-		return adjacent_friendlies.length >= 3;
+		return adjacent_friendlies.length >= 2;	
 	}).forEach(function(cell) {
 		board.teams[cell.y][cell.x] = critter_class();
 	});
@@ -142,10 +145,10 @@ function game_tick() {
 
 				// Predators
 				case 'bird':
-					eat_or_move(board, critter, ['bug', 'snake'], ['grass', 'water']);
+					eat_or_move(board, critter, ['bug', 'snake', 'fish'], ['grass', 'water']);
 					break;
 				case 'snake':
-					eat_or_move(board, critter, ['fish', 'bird'], ['grass', 'water']);
+					eat_or_move(board, critter, ['fish', 'bird', 'bug'], ['grass', 'water']);
 					break;
 
 				// Herbavores

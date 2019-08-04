@@ -198,14 +198,7 @@ function game_tick() {
 
   if (stats.team_count === 1) {
     stop_game();
-    var div = document.createElement("h1");
-    div.style.lineHeight = '100%';
-    div.style.position = 'absolute';
-    div.style.top = 0;
-    div.style.left = 0;
-    div.style.fontSize = '100px';
-    div.appendChild(document.createTextNode("YOU WIN!"));
-    document.body.appendChild(div);
+    document.getElementById("you-win").style.display = 'block';
   }
 
 }

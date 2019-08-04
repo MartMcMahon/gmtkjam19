@@ -28,16 +28,16 @@ var water = {
   }
 }
 
-var bird = { name: "bird", backgroundImage: "gfx/ent-bird.png" };
-var bug = { name: "bug", backgroundImage: "ent-bug.png" };
-var dragon = { name: "dragon", backgroundImage: "ent-dragon.png" };
-var fish = { name: "fish", backgroundImage: "ent-fish.png" };
-var mushroom = { name: "mushroom", backgroundImage: "ent-mushroom.png" };
-var seaweed = { name: "seaweed", backgroundImage: "ent-seaweed.png" };
-var shark = { name: "shark", backgroundImage: "ent-shark.png" };
-var snail = { name: "snail", backgroundImage: "gfx/ent-snail.png" };
-var snake = { name: "snake", backgroundImage: "ent-snake.png" };
-var tree = { name: "tree", backgroundImage: "ent-tree.png" };
+var bird = { name: "bird", backgroundImage: "./gfx/ent-bird.png", backgroundPosition: "50% 50%" };
+var bug = { name: "bug", backgroundImage: "./gfx/ent-bug.png" , backgroundPosition: "50% 50%"};
+var dragon = { name: "dragon", backgroundImage: "./gfx/ent-dragon.png", backgroundPosition: "50% 50%" };
+var fish = { name: "fish", backgroundImage: "./gfx/ent-fish.png", backgroundPosition: "50% 50%" };
+var mushroom = { name: "mushroom", backgroundImage: "./gfx/ent-mushroom.png", backgroundPosition: "50% 50%" };
+var seaweed = { name: "seaweed", backgroundImage: "./gfx/ent-seaweed.png", backgroundPosition: "50% 50%" };
+var shark = { name: "shark", backgroundImage: "./gfx/ent-shark.png", backgroundPosition: "50% 50%" };
+var snail = { name: "snail", backgroundImage: "./gfx/gfx/ent-snail.png", backgroundPosition: "50% 50%" };
+var snake = { name: "snake", backgroundImage: "./gfx/ent-snake.png", backgroundPosition: "50% 50%" };
+var tree = { name: "tree", backgroundImage: "./gfx/ent-tree.png", backgroundPosition: "50% 50%" };
 
 var tiles = [
 	grass, water // , desert, forest

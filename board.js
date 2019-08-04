@@ -280,7 +280,9 @@ function get_board_stats(board) {
 			}
 			if (!teams[entity.name]) {
 				teams[entity.name] = 0;
-				team_count += 1;
+				if (entity._type == "species") {
+					team_count += 1;
+				}
 			}
 			teams[entity.name] += 1;
 		});

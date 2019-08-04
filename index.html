@@ -121,6 +121,7 @@
 	var board_size = [10, 10];
 	var round_duration = 1200;
 	var ff_round_duration = round_duration / 10;
+	var plague_ratio = 0.5;
 </script>
 <body>
 <script src="ui.js"></script>
@@ -145,16 +146,16 @@
     </div>
     <div class="controls">
       <div>Plague</div>
-      <button class="plague-button" ><img src="./gfx/ent-mushroom.gif" /></button>
-      <button class="plague-button" ><img src="./gfx/ent-snail.png" /></button>
-      <button class="plague-button" ><img src="./gfx/ent-bug.png" /></button>
-      <button class="plague-button" ><img src="./gfx/ent-fish.png" /></button>
-      <button class="plague-button" ><img src="./gfx/ent-seaweed.png" /></button>
-      <button class="plague-button" ><img src="./gfx/ent-tree.png" /></button>
-      <button class="plague-button" ><img src="./gfx/ent-bird.png" /></button>
-      <button class="plague-button" ><img src="./gfx/ent-snake.png" /></button>
-      <button class="plague-button" ><img src="./gfx/ent-dragon.png" /></button>
-      <button class="plague-button" ><img src="./gfx/ent-shark.png" /></button>
+      <button class="plague-button" onClick="kill(plague_ratio, 'mushroom')"><img src="./gfx/ent-mushroom.gif" /></button>
+      <button class="plague-button" onClick="kill(plague_ratio, 'snail')"><img src="./gfx/ent-snail.png" /></button>
+      <button class="plague-button" onClick="kill(plague_ratio, 'bug')"><img src="./gfx/ent-bug.png" /></button>
+      <button class="plague-button" onClick="kill(plague_ratio, 'fish')"><img src="./gfx/ent-fish.png" /></button>
+      <button class="plague-button" onClick="kill(plague_ratio, 'seaweed')"><img src="./gfx/ent-seaweed.png" /></button>
+      <button class="plague-button" onClick="kill(plague_ratio, 'tree')"><img src="./gfx/ent-tree.png" /></button>
+      <button class="plague-button" onClick="kill(plague_ratio, 'bird')"><img src="./gfx/ent-bird.png" /></button>
+      <button class="plague-button" onClick="kill(plague_ratio, 'snake')"><img src="./gfx/ent-snake.png" /></button>
+      <button class="plague-button" onClick="kill(plague_ratio, 'dragon')"><img src="./gfx/ent-dragon.png" /></button>
+      <button class="plague-button" onClick="kill(plague_ratio, 'shark')"><img src="./gfx/ent-shark.png" /></button>
     </div>
   </div>
   <div class="controls-bottom">
@@ -170,7 +171,7 @@
       </div>
       <div class="controls-bottom-right">
         <button class="spawn-button" onClick="spawn()"><img src="./gfx/pixel-dna.png" />Spawn</button>
-        <button class="decimate-button" onClick="decimate()"><img src="./gfx/icon-skull.png" />Decimate</button>
+        <button class="decimate-button" onClick="kill(0.10)"><img src="./gfx/icon-skull.png" />Decimate</button>
       </div>
     </div>
   </div>

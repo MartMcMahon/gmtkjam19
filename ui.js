@@ -11,6 +11,9 @@ function select_tile(id) {
 }
 
 function mouseOver(id) {
+  if (!isAddMode) {
+    return null;
+  }
   var elem = document.getElementById(id);
   elem.style.border = "6px dashed red";
   elem.style.margin = "-6px";
@@ -22,3 +25,11 @@ function mouseLeave(id) {
   elem.style.margin = "unset";
   elem.style.zIndex = "unset";
 }
+
+var isAddMode = false;
+var flagType = null;
+function toggleAddMode(newFlagType) {
+  isAddMode = !isAddMode;
+  flagType = newFlagType;
+}
+

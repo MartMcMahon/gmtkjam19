@@ -44,7 +44,13 @@ function plant_growth(newboard, critter, tile_type) {
 	
 }
 
-
+var critter_priority = [
+	dragon, shark,
+	bird, snake,
+	bug, fish,
+	tree, seaweed,
+	mushroom, snail
+]
 function game_tick() {
 	var newboard = {
 		round: board.round + 1,
@@ -58,49 +64,56 @@ function game_tick() {
 	
 	var critter;
 	var critters = get_cells_for_coords(find_occupied_cells());
-	for (var i=0; i < critters.length; i++) {
-		critter = critters[i];
-		switch (critter.entity) {
-			// Apex Predators
-			case dragon:
-				eat_or_move(newboard, critter, [bird], [grass]);
-				break;
-			case shark:	
-				eat_or_move(newboard, critter, [snake], [water]);
-				break;
 	
-			// Predators
-			case bird:
-				eat_or_move(newboard, critter, [bug, fish, snake], [grass, water]);
-				break;
-			case snake:
-				eat_or_move(newboard, critter, [bug, fish, bird], [grass, water]);
-				break;
+	for (var ci=0; ci < critter_priority.length; ci++) {
+		var critter_type = critter_priority[ci];
+		for (var i=0; i < critters.length; i++) {
+			critter = critters[i];
+			if (critter.entity !== critter_type) {
+				continue;
+			}
+			switch (critter.entity) {
+				// Apex Predators
+				case dragon:
+					eat_or_move(newboard, critter, [bird], [grass]);
+					break;
+				case shark:	
+					eat_or_move(newboard, critter, [snake], [water]);
+					break;
 	
-			// Herbavores
-			case bug:
-				eat_or_move(newboard, critter, [tree], [grass]);
-				break;
-			case fish:
-				eat_or_move(newboard, critter, [seaweed], [water]);
-				break;
+				// Predators
+				case bird:
+					eat_or_move(newboard, critter, [bug, fish, snake], [grass, water]);
+					break;
+				case snake:
+					eat_or_move(newboard, critter, [bug, fish, bird], [grass, water]);
+					break;
 	
-			// Plants
-			case tree:
-				plant_growth(newboard, critter, grass);
-				break;
-			case seaweed:
-				plant_growth(newboard, critter, water);
-				break;
+				// Herbavores
+				case bug:
+					eat_or_move(newboard, critter, [tree], [grass]);
+					break;
+				case fish:
+					eat_or_move(newboard, critter, [seaweed], [water]);
+					break;
 	
-			// Recyclers
-			case mushroom:
-				break;
-			case snail:
-				break
+				// Plants
+				case tree:
+					plant_growth(newboard, critter, grass);
+					break;
+				case seaweed:
+					plant_growth(newboard, critter, water);
+					break;
+	
+				// Recyclers
+				case mushroom:
+					break;
+				case snail:
+					break
 				
-			default:
-				console.log("got an unexpected critter in game_tick(): " + JSON.stringify(critter))
+				default:
+					console.log("got an unexpected critter in game_tick(): " + JSON.stringify(critter))
+			}
 		}
 	}
 	

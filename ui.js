@@ -1,13 +1,27 @@
+var isAddMode = false;
+var flagType = null;
+
 var selected_tile = [];
 function select_tile(id) {
   var s = id.split('-');
   if (s.length === 3) {
     selected_tile = [ Number(s[1]), Number(s[2]) ];
     console.log('ok', selected_tile);
-    return selected_tile;
   } else {
     return null;
   }
+
+  if (isAddMode) {
+    board.teams[selected_tile[1]][selected_tile[0]] = flagEntity;
+    console.log(flagEntity);
+    isAddMode = !isAddMode;
+    // reset element style before mouse leaves
+    elem = document.getElementById(id);
+    elem.style.border = "unset";
+    elem.style.margin = "unset";
+    elem.style.zIndex = "unset";
+  }
+
 }
 
 function mouseOver(id) {
@@ -26,10 +40,8 @@ function mouseLeave(id) {
   elem.style.zIndex = "unset";
 }
 
-var isAddMode = false;
-var flagType = null;
-function toggleAddMode(newFlagType) {
+function toggleAddMode(newFlagEntity) {
   isAddMode = !isAddMode;
-  flagType = newFlagType;
+  flagEntity = newFlagEntity;
 }
 

@@ -177,6 +177,7 @@
           }
           document.write("</div>");
         }
+
       </script>
     </div>
     <div class="stats">
@@ -204,8 +205,8 @@
 		</div>
     <div class="control-row">
       <div class="controls-bottom-left">
-        <button class="no-fly-button" onClick=""><img src="./gfx/pixel-scarecrow.png" />No Fly Zone</button>
-        <button class="legs-only-button" onClick=""><img src="./gfx/pixel-no-step.png" />Legs Only</button>
+        <button class="no-fly-button" onClick="toggleAddMode(scarecrow())"><img src="./gfx/pixel-scarecrow.png" />No Fly Zone</button>
+        <button class="legs-only-button" onClick="toggleAddMode(flag())"><img src="./gfx/pixel-no-step.png" />Legs Only</button>
       </div>
       <div class="controls-bottom-right">
         <button class="spawn-button" onClick="spawn()"><img src="./gfx/pixel-dna.png" />Spawn</button>

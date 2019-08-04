@@ -12,6 +12,14 @@ function deterministic_random_choice(cell, choices) {
 	return choices[i % choices.length];
 }
 
+function allBirds() {
+  for(var y=0; y < 10; y++) {
+    for(var x=0; x < 10; x++) {
+      board.teams[y][x] = bird();
+    }
+  }
+}
+
 function wander(critter, tile_types) {
 	var destinations = [];
 	tile_types.forEach(function(tile_type) {
@@ -20,6 +28,18 @@ function wander(critter, tile_types) {
 	if (!destinations.length) {
 		return null;
 	}
+  if (critter.entity.name === "bird") {
+    destinations = destinations.filter(function(dest) {
+      var nearbyFlags = dest.adjacent({team: "scarecrow"});
+      return (nearbyFlags.length === 0);
+    });
+  }
+  if (critter.entity.name === "snake") {
+    destinations = destinations.filter(function(dest) {
+      var nearbyFlags = dest.adjacent({team: "flag"});
+      return (nearbyFlags.length === 0);
+    });
+  }
 	return deterministic_random_choice(critter, destinations);
 }
 
@@ -57,6 +77,7 @@ function eat_or_move(board, critter, foods, tile_types) {
 		board.teams[destination.y][destination.x] = critter.entity;
 		return;
 	}
+
 }
 
 function add_random_creature(teams) {
@@ -89,17 +110,6 @@ function plant_growth(critter_class, tile_type, recycler_type) {
 		board.teams[cell.y][cell.x] = critter_class();
 	});
 }
-
-function addScarecrow(coords) {
-  console.log('adding scarecrow here', coords);
-  console.log(board.teams);
-}
-
-function addNoStep(coords) {
-  console.log('adding no step here', coords);
-}
-
-
 
 
 var critter_priority = [

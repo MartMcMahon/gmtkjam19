@@ -91,7 +91,7 @@ function scarecrow() {
   return ent;
 }
 function flag() {
-  var ent = species({ name: "flag", backgroundImage: "./gfx/pixel-no-fly.png", backgroundPosition: "50% 50%", habitat: [grass] });
+  var ent = species({ name: "flag", backgroundImage: "./gfx/pixel-no-step.png", backgroundPosition: "50% 50%", habitat: [grass] });
 	ent._type = "nonspecies";
   return ent;
 }

@@ -61,6 +61,7 @@
 	var board_size = [10, 10];
 </script>
 <body>
+<script src="ui.js"></script>
 <div class="wrapper">
 	<div class="gameboard">
 		<script>
@@ -72,7 +73,7 @@
 			for (var y=0; y<board_size[1];y++) {
 				document.write("<div class='row'>");
 				for (var x=0; x<board_size[0];x++) {
-					document.write("<div class='boardcell' id='tile-" + x + "-" + y + "'>" + subTiles + "<div class='boardentity' id='entity-" + x + "-" + y + "'></div></div>");
+					document.write("<div class='boardcell' id='tile-" + x + "-" + y + "' onClick='select_tile(id)' onmouseover='mouseOver(id)' onmouseleave='mouseLeave(id)' >" + subTiles + "<div class='boardentity' id='entity-" + x + "-" + y + "'></div></div>");
 				}
 				document.write("</div>");
 			}

@@ -9,6 +9,9 @@
 		font-size: 16px;
 		font-family: monospace;
 	}
+  h1 {
+    text-align: center;
+  }
 	html {
 		background-image: url('gfx/background.png');
 		background-repeat: no-repeat;
@@ -88,12 +91,17 @@
     width: 500px;
   }
 	.controls {
-		float: left;
-		margin-left: 20px;
+		margin-left: 35px;
 		margin-top: 30px;
     text-align: -webkit-center;
 		width: 300px;
 	}
+  .plague-controls {
+    background: #C1C1C1AA;
+    border: 1px solid black;
+    padding: 6px;
+  }
+
   .controls > div {
     border-bottom: 2px solid #C1C1C1C1;
     margin-bottom: 10px;
@@ -109,6 +117,7 @@
   .control-row {
     display: flex;
     flex-direction: row;
+    justify-content: center;
   }
   .controls-bottom-left {
     margin: 0 auto;
@@ -145,11 +154,15 @@
     color: white;
   }
   .plague-button {
-    background: #00000000;
+    background: #FFFFFF;
     width: fit-content;
   }
   .tick-button {
-    height: unset;
+    border-radius: 100%;
+    font-size: 30px;
+    height: 50px;
+    margin: 12px;
+    width: 50px;
   }
 </style>
 <script>
@@ -169,7 +182,6 @@
         for (var c = 0; c < 9; c++) {
           subTiles += "<div class='subtile' id='subtile-" + c + "'></div>";
         }
-
         for (var y=0; y<board_size[1];y++) {
           document.write("<div class='row'>");
           for (var x=0; x<board_size[0];x++) {
@@ -177,7 +189,6 @@
           }
           document.write("</div>");
         }
-
       </script>
     </div>
     <div class="stats">
@@ -185,38 +196,40 @@
       <div class="statblock"><label>Round:</label> <span id="round-number"></span></div>
     </div>
     <div class="controls">
-      <div>Plague</div>
-      <button class="plague-button" onClick="kill(plague_ratio, 'tree')"><img src="./gfx/ent-tree.png" /></button>
-      <button class="plague-button" onClick="kill(plague_ratio, 'bug')"><img src="./gfx/ent-bug.png" /></button>
-      <button class="plague-button" onClick="kill(plague_ratio, 'bird')"><img src="./gfx/ent-bird.png" /></button>
-      <button class="plague-button" onClick="kill(plague_ratio, 'dragon')"><img src="./gfx/ent-dragon.png" /></button>
-      <button class="plague-button" onClick="kill(plague_ratio, 'mushroom')"><img src="./gfx/ent-mushroom.gif" /></button>
-      
-      <button class="plague-button" onClick="kill(plague_ratio, 'seaweed')"><img src="./gfx/ent-seaweed.png" /></button>
-      <button class="plague-button" onClick="kill(plague_ratio, 'fish')"><img src="./gfx/ent-fish.png" /></button>
-      <button class="plague-button" onClick="kill(plague_ratio, 'snake')"><img src="./gfx/ent-snake.png" /></button>
-      <button class="plague-button" onClick="kill(plague_ratio, 'shark')"><img src="./gfx/ent-shark.png" /></button>
-      <button class="plague-button" onClick="kill(plague_ratio, 'snail')"><img src="./gfx/ent-snail.png" /></button>      
-    </div>
-  </div>
-  <div class="controls-bottom">
-  	<div class="control-row">
-			<button class="tick-button" onMouseDown="fast_forward()" onMouseUp="normal_speed()">FF</button>
-		</div>
-    <div class="control-row">
-      <div class="controls-bottom-left">
-        <button class="no-fly-button" onClick="toggleAddMode(scarecrow())"><img src="./gfx/pixel-scarecrow.png" />No Fly Zone</button>
-        <button class="legs-only-button" onClick="toggleAddMode(flag())"><img src="./gfx/pixel-no-step.png" />Legs Only</button>
+      <div class="plague-controls">
+        <div>Plague</div>
+        <button class="plague-button" onClick="kill(plague_ratio, 'tree')"><img src="./gfx/ent-tree.png" /></button>
+        <button class="plague-button" onClick="kill(plague_ratio, 'bug')"><img src="./gfx/ent-bug.png" /></button>
+        <button class="plague-button" onClick="kill(plague_ratio, 'bird')"><img src="./gfx/ent-bird.png" /></button>
+        <button class="plague-button" onClick="kill(plague_ratio, 'dragon')"><img src="./gfx/ent-dragon.png" /></button>
+        <button class="plague-button" onClick="kill(plague_ratio, 'mushroom')"><img src="./gfx/ent-mushroom.gif" /></button>
+
+        <button class="plague-button" onClick="kill(plague_ratio, 'seaweed')"><img src="./gfx/ent-seaweed.png" /></button>
+        <button class="plague-button" onClick="kill(plague_ratio, 'fish')"><img src="./gfx/ent-fish.png" /></button>
+        <button class="plague-button" onClick="kill(plague_ratio, 'snake')"><img src="./gfx/ent-snake.png" /></button>
+        <button class="plague-button" onClick="kill(plague_ratio, 'shark')"><img src="./gfx/ent-shark.png" /></button>
+        <button class="plague-button" onClick="kill(plague_ratio, 'snail')"><img src="./gfx/ent-snail.png" /></button>
       </div>
-      <div class="controls-bottom-right">
-        <button class="spawn-button" onClick="spawn()"><img src="./gfx/pixel-dna.png" />Spawn</button>
-        <button class="decimate-button" onClick="kill(0.10)"><img src="./gfx/icon-skull.png" />Decimate</button>
+      <div class="controls-bottom">
+        <div class="control-row">
+          <div class="controls-bottom-left">
+            <button class="no-fly-button" onClick="toggleAddMode(scarecrow())"><img src="./gfx/pixel-scarecrow.png" />No Fly Zone</button>
+            <button class="legs-only-button" onClick="toggleAddMode(flag())"><img src="./gfx/pixel-no-step.png" />Legs Only</button>
+          </div>
+          <div class="controls-bottom-right">
+            <button class="spawn-button" onClick="spawn()"><img src="./gfx/pixel-dna.png" />Spawn</button>
+            <button class="decimate-button" onClick="kill(0.10)"><img src="./gfx/icon-skull.png" />Decimate</button>
+          </div>
+        </div>
+        <div class="control-row">
+          <button class="tick-button" onMouseDown="fast_forward()" onMouseUp="normal_speed()">⏩</button>
+          <button class="tick-button" id="music-button" onClick="toggleMusic()" >🔇</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<button id="music-button" onClick="playMusic()" >🔇</button>
 <script src="assets.js"></script>
 <script src="utils.js"></script>
 <script src="constants.js"></script>

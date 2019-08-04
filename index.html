@@ -93,7 +93,7 @@
 	.controls {
 		margin-left: 35px;
 		margin-top: 30px;
-    text-align: -webkit-center;
+    text-align: center;
 		width: 300px;
 	}
   .plague-controls {
@@ -108,22 +108,27 @@
     padding-bottom: 10px;
     width: 280px;
   }
-  .controls-bottom {
+  .control-row {
     display: flex;
     flex-direction: column;
     margin: 0 6px;
     width: 480px;
   }
-  .control-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  .controls-bottom {
+    position: absolute;
+    bottom: -65px;
+    left: 0;
+    height: 40px;
+    width: 720px;
   }
-  .controls-bottom-left {
-    margin: 0 auto;
-  }
-  .controls-bottom-right {
-    margin: 0 auto;
+  .controls-bottom button {
+  	float: left;
+  	width: 140px;
+  	height: 40px;
+  	border: none;
+  	border-radius: 20px;
+  	text-align: center;
+  	margin-right: 10px
   }
   .info-button {
   	position: absolute;
@@ -194,12 +199,20 @@
   	width: 48px;
   	height: 48px;
   }
-  .tick-button {
+  .controls-bottom .tick-button {
+  	float: left;
+  	margin-top: -10px;
     border-radius: 100%;
     font-size: 30px;
-    height: 50px;
-    margin: 12px;
-    width: 50px;
+    height: 60px;
+    width: 60px;
+    margin-left: 30px;
+    background: rgb(165, 85, 85) url('gfx/ff.png') 60% 50% no-repeat;
+    box-shadow: 0px 4px 6px rgba(0,0,0,0.7);
+  }
+  .controls-bottom .tick-button:active {
+  	margin-top: -8px;
+  	box-shadow: 0px 2px 3px rgba(0,0,0,0.9);
   }
   #you-win {
   	display: none;
@@ -265,23 +278,18 @@
         <button class="plague-button" onClick="kill(plague_ratio, 'shark')"><img src="./gfx/ent-shark.png" /></button>
         <button class="plague-button" onClick="kill(plague_ratio, 'snail')"><img src="./gfx/ent-snail.png" /></button>
       </div>
-      <div class="controls-bottom">
-        <div class="control-row">
-          <div class="controls-bottom-left">
-            <button class="no-fly-button" onClick="toggleAddMode(scarecrow())"><img src="./gfx/pixel-scarecrow.png" />No Fly Zone</button>
-            <button class="legs-only-button" onClick="toggleAddMode(flag())"><img src="./gfx/pixel-no-step.png" />Legs Only</button>
-          </div>
-          <div class="controls-bottom-right">
-            <button class="spawn-button" onClick="spawn()"><img src="./gfx/pixel-dna.png" />Spawn</button>
-            <button class="decimate-button" onClick="kill(0.10)"><img src="./gfx/icon-skull.png" />Decimate</button>
-          </div>
-        </div>
-        <div class="control-row">
-          <button class="tick-button" onMouseDown="fast_forward()" onMouseUp="normal_speed()">⏩</button>
-          <button class="tick-button" id="music-button" onClick="toggleMusic()" >🔇</button>
-        </div>
-      </div>
+			<div class="control-row">
+				<button class="tick-button" id="music-button" onClick="toggleMusic()" >🔇</button>
+			</div>
     </div>
+    <div class="controls-bottom">
+			<button class="no-fly-button" onClick="toggleAddMode(scarecrow())"><img src="./gfx/pixel-scarecrow.png" />No Fly Zone</button>
+			<button class="legs-only-button" onClick="toggleAddMode(flag())"><img src="./gfx/pixel-no-step.png" />Legs Only</button>
+			<button class="spawn-button" onClick="spawn()"><img src="./gfx/pixel-dna.png" />Spawn</button>
+			<button class="decimate-button" onClick="kill(0.10)"><img src="./gfx/icon-skull.png" />Decimate</button>
+			
+			<button class="tick-button" onMouseDown="fast_forward()" onMouseUp="normal_speed()"></button>
+		</div>
   </div>
 </div>
 

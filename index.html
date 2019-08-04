@@ -56,9 +56,16 @@
   }
 	.controls {
 		float: left;
-		width: 320px;
-		margin-left: 20px;
+		margin-left: 40px;
+    text-align: -webkit-center;
+		width: 120px;
 	}
+  .controls > div {
+    border-bottom: 2px solid #C1C1C1C1;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    width: 100px;
+  }
   .controls-bottom {
     display: flex;
     flex-direction: column;
@@ -76,10 +83,16 @@
     margin: 0 auto;
   }
 	button {
+    display: inline-flex;
 		height: 40px;
+    justify-content: center;
+    line-height: 40px;
+    margin-bottom: 10px;
 		width: 100%;
-		margin-bottom: 10px;
 	}
+  button > img {
+    width: 32px;
+  }
   .spawn-button {
     background: #4f6d9e;
     color: white;
@@ -95,6 +108,10 @@
   .legs-only-button {
     background: #8A66CA;
     color: white;
+  }
+  .plague-button {
+    background: #00000000;
+    width: fit-content;
   }
   .tick-button {
     height: unset;
@@ -127,12 +144,17 @@
       </script>
     </div>
     <div class="controls">
-      <button>Plague (category decimate)</button>
-      <button>Plague (category decimate)</button>
-      <button>Plague (category decimate)</button>
-      <button>Plague (category decimate)</button>
-      <button>Plague (category decimate)</button>
-      <button>Plague (category decimate)</button>
+      <div>Plague</div>
+      <button class="plague-button" ><img src="./gfx/ent-mushroom.gif" /></button>
+      <button class="plague-button" ><img src="./gfx/ent-snail.png" /></button>
+      <button class="plague-button" ><img src="./gfx/ent-bug.png" /></button>
+      <button class="plague-button" ><img src="./gfx/ent-fish.png" /></button>
+      <button class="plague-button" ><img src="./gfx/ent-seaweed.png" /></button>
+      <button class="plague-button" ><img src="./gfx/ent-tree.png" /></button>
+      <button class="plague-button" ><img src="./gfx/ent-bird.png" /></button>
+      <button class="plague-button" ><img src="./gfx/ent-snake.png" /></button>
+      <button class="plague-button" ><img src="./gfx/ent-dragon.png" /></button>
+      <button class="plague-button" ><img src="./gfx/ent-shark.png" /></button>
     </div>
   </div>
   <div class="controls-bottom">
@@ -143,12 +165,12 @@
     </div>
     <div class="control-row">
       <div class="controls-bottom-left">
-        <button class="no-fly-button" onClick="">No Fly Zone</button>
-        <button class="legs-only-button" onClick="">Legs Only</button>
+        <button class="no-fly-button" onClick=""><img src="./gfx/pixel-scarecrow.png" />No Fly Zone</button>
+        <button class="legs-only-button" onClick=""><img src="./gfx/pixel-no-step.png" />Legs Only</button>
       </div>
       <div class="controls-bottom-right">
-        <button class="spawn-button" onClick="spawn()">Spawn</button>
-        <button class="decimate-button" onClick="decimate()">Decimate</button>
+        <button class="spawn-button" onClick="spawn()"><img src="./gfx/pixel-dna.png" />Spawn</button>
+        <button class="decimate-button" onClick="decimate()"><img src="./gfx/icon-skull.png" />Decimate</button>
       </div>
     </div>
   </div>
@@ -164,6 +186,6 @@
 <script type="text/javascript">
 	init_board();
 	render_board();
-	
+
 	run_game(round_duration);
 </script>

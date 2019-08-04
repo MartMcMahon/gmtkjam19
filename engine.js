@@ -69,7 +69,7 @@ function add_random_creature(teams) {
 }
 
 function plant_growth(critter_class, tile_type, recycler_type) {
-	if (board.round % 2 !== 0) {
+	if (board.round % 3 !== 0) {
 		return;
 	}
   var critter_type = critter_class().name;
@@ -84,7 +84,7 @@ function plant_growth(critter_class, tile_type, recycler_type) {
 			cell.adjacent({team: critter_type}),
 			cell.adjacent({team: recycler_type}),
 		);
-		return adjacent_friendlies.length >= 3;	
+		return adjacent_friendlies.length >= 2;	
 	}).forEach(function(cell) {
 		board.teams[cell.y][cell.x] = critter_class();
 	});

@@ -1,4 +1,18 @@
+round_events = {};
+
+function register_event(event_name) {
+	if (round_events[board.round] !== undefined) {
+		return false;
+	}
+	round_events[board.round] = event_name;
+	document.body.className += ' didaction';
+	return true;
+}
+
 function kill(percentage, by_team) {
+	if (!register_event('kill:' + Math.round(percentage * 100) + "%:" + by_team)) {
+		return
+	}
 	var occupied = find_occupied_cells(by_team);
 	occupied = shuffle(occupied);
 	for (var i=Math.ceil(occupied.length * percentage); i--;) {
@@ -33,6 +47,9 @@ function dismiss_story() {
 }
 
 function spawn() {
+	if (!register_event('spawn')) {
+		return
+	}
 	for (var i=8; i--;) {
 		add_random_creature(teams);
 	}

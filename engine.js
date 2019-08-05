@@ -109,6 +109,14 @@ function plant_growth(critter_class, tile_type, recycler_type) {
 	}).forEach(function(cell) {
 		board.teams[cell.y][cell.x] = critter_class();
 	});
+	
+	get_cells_for_coords(find_occupied_cells(critter_type)).forEach(function(cell) {
+		var adjacent_teammates = cell.adjacent({team: critter_type});
+		var adjacent_habitat = cell.adjacent({tile: tile_type});
+		if (adjacent_teammates.length == adjacent_habitat.length) {
+			board.teams[cell.y][cell.x] = null
+		}
+	});
 }
 
 
@@ -199,6 +207,7 @@ function game_tick() {
   if (stats.team_count === 1) {
     stop_game();
     document.getElementById("you-win").style.display = 'block';
+    document.body.appendChild(div);
   }
 
 }

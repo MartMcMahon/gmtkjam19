@@ -59,7 +59,7 @@
 		border-radius: 5px;
 	}
 	.row {
-		height: 10%;
+		height: 48px;
 		width: 100%;
 		clear: both;
 	}
@@ -76,7 +76,7 @@
 		position: relative;
 		float: left;
 		height: 100%;
-		width: 10%;
+		width: 48px;
 	}
 	.boardentity {
 		display: block;
@@ -91,29 +91,18 @@
     width: 500px;
   }
 	.controls {
-		margin-left: 35px;
-		margin-top: 30px;
+		margin-top: 0px;
     text-align: center;
-		width: 300px;
+		width: 152px;
 	}
   .plague-controls {
     background: #C1C1C1AA;
-    border: 1px solid black;
-    padding: 6px;
+    border: 8px solid black;
+    border-radius: 4px;
+    margin: 0 0 10px -8px;
+    padding: 6px 10px 10px;
   }
 
-  .controls > div {
-    border-bottom: 2px solid #C1C1C1C1;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    width: 280px;
-  }
-  .control-row {
-    display: flex;
-    flex-direction: column;
-    margin: 0 6px;
-    width: 480px;
-  }
   .controls-bottom {
     position: absolute;
     bottom: -65px;
@@ -168,7 +157,7 @@
     margin-bottom: 10px;
 		width: 100%;
 	}
-  button > img {
+  .controls-bottom button img {
     width: 32px;
   }
   .spawn-button {
@@ -188,9 +177,8 @@
     color: white;
   }
   .plague-button {
-    background: #FFFFFF;
-    height: 48px; width: 48px;
     background: transparent;
+    height: 48px; width: 48px;
     border: none;
     margin: 0; padding: 0;
     line-height: 48px;
@@ -229,10 +217,17 @@
   }
 </style>
 <script>
-	var board_size = [10, 10];
+	var board_size = [16, 10];
 	var round_duration = 1200;
 	var ff_round_duration = round_duration / 10;
 	var plague_ratio = 0.69;
+
+	document.write(
+	    "<style>.gameboard { "
+      + "width: " + board_size[0] * 48 + "px;"
+      + "height: " + board_size[1] * 48 + "px;"
+      + "}</style>"
+  );
 </script>
 <body>
 <script src="ui.js"></script>
@@ -267,15 +262,18 @@
       <div class="plague-controls">
         <div>Plague</div>
         <button class="plague-button" onClick="kill(plague_ratio, 'tree')"><img src="./gfx/ent-tree.png" /></button>
-        <button class="plague-button" onClick="kill(plague_ratio, 'bug')"><img src="./gfx/ent-bug.png" /></button>
-        <button class="plague-button" onClick="kill(plague_ratio, 'bird')"><img src="./gfx/ent-bird.png" /></button>
-        <button class="plague-button" onClick="kill(plague_ratio, 'dragon')"><img src="./gfx/ent-dragon.png" /></button>
-        <button class="plague-button" onClick="kill(plague_ratio, 'mushroom')"><img src="./gfx/ent-mushroom.gif" /></button>
-
         <button class="plague-button" onClick="kill(plague_ratio, 'seaweed')"><img src="./gfx/ent-seaweed.png" /></button>
+
+        <button class="plague-button" onClick="kill(plague_ratio, 'bug')"><img src="./gfx/ent-bug.png" /></button>
         <button class="plague-button" onClick="kill(plague_ratio, 'fish')"><img src="./gfx/ent-fish.png" /></button>
+
+        <button class="plague-button" onClick="kill(plague_ratio, 'bird')"><img src="./gfx/ent-bird.png" /></button>
         <button class="plague-button" onClick="kill(plague_ratio, 'snake')"><img src="./gfx/ent-snake.png" /></button>
+
+        <button class="plague-button" onClick="kill(plague_ratio, 'dragon')"><img src="./gfx/ent-dragon.png" /></button>
         <button class="plague-button" onClick="kill(plague_ratio, 'shark')"><img src="./gfx/ent-shark.png" /></button>
+
+        <button class="plague-button" onClick="kill(plague_ratio, 'mushroom')"><img src="./gfx/ent-mushroom.gif" /></button>
         <button class="plague-button" onClick="kill(plague_ratio, 'snail')"><img src="./gfx/ent-snail.png" /></button>
       </div>
 			<div class="control-row">
@@ -287,7 +285,7 @@
 			<button class="legs-only-button" onClick="toggleAddMode(flag())"><img src="./gfx/pixel-no-step.png" />Legs Only</button>
 			<button class="spawn-button" onClick="spawn()"><img src="./gfx/pixel-dna.png" />Spawn</button>
 			<button class="decimate-button" onClick="kill(0.10)"><img src="./gfx/icon-skull.png" />Decimate</button>
-			
+
 			<button class="tick-button" onMouseDown="fast_forward()" onMouseUp="normal_speed()"></button>
 		</div>
   </div>

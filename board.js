@@ -142,6 +142,13 @@ function render_cell(x, y, tile, team) {
   team_elem.style.backgroundPosition = team && team.backgroundPosition;
 }
 function render_board() {
+	var body_classes = document.body.className.replace(/\bdidaction\b/, '');
+
+	if (is_cooling_down()) {
+		body_classes += " didaction";
+	}
+	document.body.className = body_classes;
+
 	for (var y=0; y<board_size[1];y++) {
 		for (var x=0; x<board_size[0];x++) {
 			render_cell(x, y,

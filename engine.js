@@ -129,7 +129,7 @@ var critter_priority = [
 ]
 function game_tick() {
 	board.round += 1;
-	document.body.className = document.body.className.replace(/\bdidaction\b/, '');
+
 	var critter;
 	var critters = get_cells_for_coords(find_occupied_cells());
 	critters.forEach(function(critter) {
